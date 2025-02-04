@@ -1,30 +1,52 @@
-<div class="relative flex h-full w-full flex-col items-center justify-center">
-  <!-- Fondo difuminado de la pantalla -->
+<!-- Contiene el formulario y se desactiva cuando se ejecuta el Sign In -->
+<div
+  class="relative flex h-full w-full flex-col items-center justify-center"
+  *ngIf="!isLoading"
+>
   <div
-    class="bg-image-1 absolute inset-0 -z-10 bg-[url('https://media.istockphoto.com/id/1189999060/es/vector/ilustraci%C3%B3n-de-stock-de-animal-paw-seamless-pattern.jpg?s=612x612&w=0&k=20&c=cG5fdowCDCOVY10Lf1DEOdeTwkEm4lygRCaczZ_bjNo=')] blur-sm"
+    class="bg-image-1 absolute inset-0 -z-10 bg-[url('/assets/images/auth-page/background-1.jpg')] blur-sm"
   ></div>
 
-  <!-- Formulario de inicio de sesión -->
-  <form
-    class="flex h-2/5 w-1/3 flex-col items-center justify-center gap-7 rounded-lg bg-white px-8 shadow-2xl"
-    (ngSubmit)="onSignIn()"
+  <div
+    class="flex w-1/4 flex-col items-center justify-center gap-3 rounded-lg bg-white p-8 shadow-2xl"
   >
-    <div class="flex w-full flex-col gap-2">
-      <h1 class="cursor-default">Usuario</h1>
-      <input class="input-style-1" type="email" placeholder="usuario" />
+    <div class="flex h-full w-full flex-col items-center justify-center gap-3">
+      <img
+        src="assets/images/ferrel-icons/ferrel-icon-1.png"
+        alt=""
+        class="w-1/3"
+      />
+      <h1 class="text-lg font-bold">Veterinaria Ferrel</h1>
     </div>
 
-    <div class="flex w-full flex-col gap-2">
-      <h1 class="cursor-default">Contraseña</h1>
-      <input class="input-style-1" type="password" placeholder="contraseña" />
-    </div>
+    <form class="flex h-full w-full flex-col gap-5" (ngSubmit)="onSignIn()">
+      <div class="flex w-full flex-col gap-1">
+        <h1 class="cursor-default">Usuario</h1>
+        <input class="input-style-1" type="text" placeholder="usuario" />
+      </div>
 
-    <button class="button-style-2 w-full" (click)="onSignIn()">Sign in</button>
-  </form>
+      <div class="flex w-full flex-col gap-2">
+        <h1 class="cursor-default">Contraseña</h1>
+        <input class="input-style-1" type="password" placeholder="contraseña" />
+      </div>
+
+      <div class="w-full pt-6">
+        <button
+          class="button-style-2 w-full"
+          type="submit"
+          (click)="onSignIn()"
+        >
+          Entrar
+        </button>
+      </div>
+    </form>
+  </div>
 </div>
 
-<!-- Prueba de pantalla loading -->
-<!-- Cambiar cuando se implemente la logica de autenticación -->
-<!-- <app-loading-page /> -->
+<!-- La pantalla de carga se activa dependiendo de la carga de la API -->
+<div *ngIf="isLoading" class="h-full w-full">
+  <app-loading-page />
+</div>
 
-
+<!-- Permite que los message Toast este contenida en todo la pagina -->
+<p-toast position="bottom-right" key="br" />

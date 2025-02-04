@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AuthPageComponent } from './page/auth-page.component';
+import { MascotasPageComponent } from './mascotas-page/mascotas-page.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: AuthPageComponent
+    component: MascotasPageComponent,
   },
   {
     path: '**',
@@ -17,4 +17,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class AuthRoutingModule { }
+export class MascotasRoutingModule { }

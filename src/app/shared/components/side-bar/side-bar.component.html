@@ -1,0 +1,75 @@
+<aside
+  class="group left-0 top-0 flex h-full w-full flex-col items-center justify-center bg-sky-50 px-4 py-7 shadow-inner"
+>
+  <p-drawer [(visible)]="visible">
+    <ng-template #header>
+      <div class="flex items-center gap-4">
+        <img
+          src="assets/images/ferrel-icons/ferrel-icon-1.png"
+          class="w-1/4"
+          alt=""
+        />
+        <span class="font-bold">Veterinaria Ferrel</span>
+      </div>
+    </ng-template>
+    <p-divider />
+
+    <div
+      *ngFor="let item of sideBarItems"
+      class="flex w-full cursor-pointer flex-col items-center justify-center gap-3 rounded-full bg-white p-4 hover:bg-gray-50"
+      (click)="routeNavigate(item.route)"
+    >
+      <div class="flex w-full flex-row gap-5 px-5">
+        <span><i [class]="item.icon"></i></span>
+        <h1 class="font-bold">{{ item.name }}</h1>
+      </div>
+      <p class="flex w-full px-5 text-justify text-sm">
+        {{ item.description }}
+      </p>
+    </div>
+
+    <ng-template #footer>
+      <p-divider />
+      <div class="flex w-full items-center gap-2">
+        <p-confirmpopup />
+        <button
+          pButton
+          label="Salir"
+          icon="fas fa-sign-out-alt"
+          class="w-full"
+          severity="danger"
+          text
+          [outlined]="true"
+          (click)="Logout($event)"
+        ></button>
+      </div>
+    </ng-template>
+  </p-drawer>
+  <p-button (click)="visible = true" icon="fa-solid fa-bars" />
+
+  <div
+    class="flex h-full w-full flex-col items-center justify-start gap-2 py-14"
+  >
+    <div
+      *ngFor="let item of sideBarItems"
+      class="flex w-full cursor-pointer flex-col items-center justify-center gap-5 rounded-full bg-white p-4 hover:bg-gray-50"
+      pTooltip="{{ item.tooltip }}"
+      tooltipPosition="right"
+      (click)="routeNavigate(item.route)"
+    >
+      <span><i [class]="item.icon"></i></span>
+    </div>
+  </div>
+
+  <div
+    class="flex w-full cursor-pointer items-center justify-center gap-5 rounded-full bg-white p-4 hover:bg-red-300"
+    pTooltip="Salir"
+    tooltipPosition="right"
+    (click)="Logout($event)"
+  >
+    <div class="w-full">
+      <p-confirmpopup />
+      <span><i class="fas fa-sign-out-alt"></i></span>
+    </div>
+  </div>
+</aside>
