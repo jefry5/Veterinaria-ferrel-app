@@ -1,0 +1,49 @@
+<div class="pagos-container">
+    <header class="pagos-header">
+      <h1 class="pagos-title">Detalles de Pago</h1>
+    </header>
+  
+    <section class="form-section">
+      <div class="input-group">
+        <label for="pagoId">ID</label>
+        <input id="pagoId" type="text" pInputText class="input-field"/>
+      </div>
+      <div class="button-group">
+        <p-buttongroup>
+          <p-button label="Buscar" icon="pi pi-search"></p-button>
+          <p-button label="Borrar" icon="pi pi-trash"></p-button>
+        </p-buttongroup>
+      </div>
+    </section>
+  
+    <section class="table-section">
+      <p-table [tableStyle]="{ 'min-width': '50rem' }" >
+        <ng-template pTemplate="header">
+          <tr>
+            <th>Tipo</th>
+            <th>Descripción</th>
+            <th>Cantidad</th>
+            <th>Precio total</th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-product>
+          <tr>
+            <td>{{ product.code }}</td>
+            <td>{{ product.name }}</td>
+            <td>{{ product.category }}</td>
+            <td>{{ product.quantity }}</td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </section>
+  
+    <section class="summary-section">
+      <div class="total-info">
+        <span class="total-label">Monto total:</span>
+        <span class="total-amount">{{ monto }}</span>
+      </div>
+      <div class="action-button">
+        <p-button label="Imprimir" icon="pi pi-print"></p-button>
+      </div>
+    </section>
+  </div>

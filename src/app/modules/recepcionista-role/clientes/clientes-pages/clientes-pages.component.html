@@ -1,0 +1,74 @@
+<div class="header-container">
+  <p class="text-title">Lista de clientes</p>
+  <p-button
+    class="bt-1"
+    label="Registrar cliente"
+    (onClick)="showDialog = true"
+  ></p-button>
+</div>
+<input
+  type="text"
+  pInputText
+  placeholder="Buscar cliente ..."
+  (input)="filtrarTabla($event)"
+  class="mb-3 w-full"
+/>
+
+<p-table [value]="clientes" [tableStyle]="{ 'min-width': '50rem' }">
+  <ng-template pTemplate="header">
+    <tr>
+      <th>DNI</th>
+      <th>Nombre</th>
+      <th>Apellido</th>
+      <th>Numero</th>
+      <th>Opciones</th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-cliente>
+    <tr [ngClass]="rowClass(cliente)" [ngStyle]="rowStyle(cliente)">
+      <td>{{ cliente.dni }}</td>
+      <td>{{ cliente.nombre }}</td>
+      <td>{{ cliente.apellido }}</td>
+      <td>{{ cliente.numero }}</td>
+      <td>
+        <p-button>Modificar</p-button>
+        <p-button>Eliminar</p-button>
+      </td>
+    </tr>
+  </ng-template>
+</p-table>
+
+<p-dialog
+  header="Registrar Usuario"
+  [(visible)]="showDialog"
+  [style]="{ width: '25rem' }"
+  [modal]="true"
+>
+  <form class="flex h-full w-full flex-col gap-5">
+    <div class="flex w-full flex-col gap-1">
+      <h1 class="cursor-default">Nombre</h1>
+      <input class="input-style-1" type="text" placeholder="Nombre" />
+    </div>
+    <div class="flex w-full flex-col gap-1">
+      <h1 class="cursor-default">Apellido</h1>
+      <input class="input-style-1" type="text" placeholder="Apellido" />
+    </div>
+    <div class="flex w-full flex-col gap-1">
+      <h1 class="cursor-default">DNI</h1>
+      <input class="input-style-1" type="text" placeholder="DNI" />
+    </div>
+    <div class="flex w-full flex-col gap-1">
+      <h1 class="cursor-default">Telefono</h1>
+      <input class="input-style-1" type="number" placeholder="Telefono" />
+    </div>
+    <div class="flex w-full flex-col gap-1">
+      <h1 class="cursor-default">Direccion</h1>
+      <input class="input-style-1" type="text" placeholder="Direccion" />
+    </div>
+    <div class="flex w-full flex-col gap-1">
+      <h1 class="cursor-default">Correo</h1>
+      <input class="input-style-1" type="text" placeholder="Correo" />
+    </div>
+    <p-button label="Registrar" class="button-style-2 w-full"></p-button>
+  </form>
+</p-dialog>
