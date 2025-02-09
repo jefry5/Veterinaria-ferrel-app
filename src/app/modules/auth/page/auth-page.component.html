@@ -1,4 +1,3 @@
-<!-- Contiene el formulario y se desactiva cuando se ejecuta el Sign In -->
 <div
   class="relative flex h-full w-full flex-col items-center justify-center"
   *ngIf="!isLoading"
@@ -19,34 +18,34 @@
       <h1 class="text-lg font-bold">Veterinaria Ferrel</h1>
     </div>
 
-    <form class="flex h-full w-full flex-col gap-5" (ngSubmit)="onSignIn()">
+    <form
+      class="flex h-full w-full flex-col gap-5"
+      (ngSubmit)="onSignIn()"
+      [formGroup]="loginForm"
+    >
       <div class="flex w-full flex-col gap-1">
         <h1 class="cursor-default">Usuario</h1>
-        <input class="input-style-1" type="text" placeholder="usuario" />
+        <input
+          class="input-style-1"
+          type="text"
+          placeholder="usuario"
+          formControlName="usuario"
+        />
       </div>
 
       <div class="flex w-full flex-col gap-2">
         <h1 class="cursor-default">Contraseña</h1>
-        <input class="input-style-1" type="password" placeholder="contraseña" />
+        <input
+          class="input-style-1"
+          type="password"
+          placeholder="contraseña"
+          formControlName="password"
+        />
       </div>
 
       <div class="w-full pt-6">
-        <button
-          class="button-style-2 w-full"
-          type="submit"
-          (click)="onSignIn()"
-        >
-          Entrar
-        </button>
+        <button class="button-style-2 w-full" type="submit">Entrar</button>
       </div>
     </form>
   </div>
 </div>
-
-<!-- La pantalla de carga se activa dependiendo de la carga de la API -->
-<div *ngIf="isLoading" class="h-full w-full">
-  <app-loading-page />
-</div>
-
-<!-- Permite que los message Toast este contenida en todo la pagina -->
-<p-toast position="bottom-right" key="br" />

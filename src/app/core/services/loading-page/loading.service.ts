@@ -10,10 +10,12 @@ export class LoadingService {
 
   constructor() { }
 
+  //Método que muestra la pantalla de carga
   show() : void {
     this.loadingSubject.next(true);
   }
 
+  //Método que oculta la pantalla de carga
   hide() : void {
     this.loadingSubject.next(false);
   }

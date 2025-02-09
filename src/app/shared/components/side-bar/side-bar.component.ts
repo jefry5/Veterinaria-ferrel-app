@@ -10,7 +10,7 @@ import { RippleModule } from 'primeng/ripple';
 import { Router } from '@angular/router';
 import { DividerModule } from 'primeng/divider';
 import { SideBarService } from '@core/services/side-bar/side-bar.service';
-import { RolesService } from '@core/services/roles/roles.service';
+import { AuthService } from '@core/services/auth/auth.service';
 
 @Component({
   selector: 'app-side-bar',
@@ -34,12 +34,12 @@ export class SideBarComponent {
     private confirmationService: ConfirmationService,
     private router: Router,
     private sidebarService: SideBarService,
-    private rolesService: RolesService,
+    private authService: AuthService,
   ) {
     this.sideBarItems = this.sidebarService.items;
   }
 
-  routeNavigate(route : string){
+  routeNavigate(route: string) {
     this.router.navigate([`/${route}`]);
   }
 
@@ -57,11 +57,10 @@ export class SideBarComponent {
         label: 'Sí',
       },
       accept: () => {
-        this.sidebarService.clearItems();
-        this.rolesService.clearRole();
+        this.authService.logout();
         this.router.navigate(['/auth']);
       },
-      reject: () => {},
+      reject: () => { },
     });
   }
 

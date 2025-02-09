@@ -1,7 +1,6 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-@import "primeicons/primeicons.css";
 
 /* Se definen las variables CSS en esta sección */
 :root {
