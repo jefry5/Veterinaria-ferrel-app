@@ -1,13 +1,13 @@
 <!-- Muestra el contenido en un contenedor tras pasar "/auth" -->
-<div class="flex h-full w-full flex-row" *ngIf="showLayout && !isLoading">
-  <app-side-bar />
+<div class="flex flex-row h-full w-full" *ngIf="!isLoading">
+  <app-side-bar *ngIf="!isAuthPage"/>
   <div class="h-full w-full">
     <router-outlet></router-outlet>
   </div>
 </div>
 
-<!-- Muestra el "/auth" sin el contenedor -->
-<router-outlet *ngIf="!showLayout && !isLoading"></router-outlet>
-
 <!-- Muestra la pantalla de carga cuando se le invoque -->
-<app-loading-page *ngIf="isLoading"/>
+<app-loading-page *ngIf="isLoading" />
+
+<!-- Permite que los message Toast este contenida en todo la pagina -->
+<p-toast position="bottom-right" key="br" />
