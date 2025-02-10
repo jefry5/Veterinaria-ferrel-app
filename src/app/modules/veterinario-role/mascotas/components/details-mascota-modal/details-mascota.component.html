@@ -1,0 +1,52 @@
+<p-dialog
+  [(visible)]="visible"
+  [modal]="true"
+  [style]="{ width: '25rem' }"
+  (onHide)="closeDialog()"
+  [draggable]="false"
+  [resizable]="false"
+>
+  <ng-template #header>
+    <div class="inline-flex items-center justify-center gap-2">
+      <p-avatar
+        image="https://w7.pngwing.com/pngs/109/426/png-transparent-miss-kobayashi-s-dragon-maid-anime-cosplay-others-miss-kobayashi-s-dragon-maid-anime-cosplay.png"
+        shape="circle"
+      />
+      <span class="whitespace-nowrap font-bold">{{
+        mascota?.nombre | uppercase
+      }}</span>
+    </div>
+  </ng-template>
+
+  <div
+    *ngIf="mascota"
+    class="flex w-full flex-col items-start justify-center gap-2"
+  >
+    <div class="flex w-full flex-col">
+      <p-divider />
+      <span class="font-bold">Información de Mascota</span>
+      <p-divider />
+      <p><strong>Raza:</strong> {{ mascota.raza }}</p>
+      <p>
+        <strong>Edad:</strong> {{ mascota.edad }}
+        {{ mascota.edad === 1 ? "año" : "años" }}
+      </p>
+      <p><strong>Sexo:</strong> {{ mascota.sexo }}</p>
+      <p><strong>Peso:</strong> {{ mascota.peso }} kg</p>
+      <p><strong>Talla:</strong> {{ mascota.talla }} cm</p>
+    </div>
+
+    <div class="flex w-full flex-col">
+      <p-divider />
+      <span class="font-bold">Información de Dueño</span>
+      <p-divider />
+      <p>
+        <strong>Nombre:</strong> {{ mascota.cliente?.nombre }}
+        {{ mascota.cliente?.apellido }}
+      </p>
+      <p><strong>DNI:</strong> {{ mascota.cliente?.dni }}</p>
+    </div>
+  </div>
+
+  <ng-template #footer></ng-template>
+</p-dialog>

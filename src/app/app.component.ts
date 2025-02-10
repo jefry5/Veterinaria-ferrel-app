@@ -11,7 +11,7 @@ import { filter } from 'rxjs';
 @Component({
   selector: 'app-root',
   imports: [RouterOutlet, SideBarComponent, CommonModule, LoadingPageComponent, ToastModule, RippleModule],
-  templateUrl: './app.component.html'
+  templateUrl: './app.component.html',
 })
 export class AppComponent implements OnInit {
   title = 'veterinaria-ferrel-app';

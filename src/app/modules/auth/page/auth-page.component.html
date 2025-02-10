@@ -35,12 +35,25 @@
 
       <div class="flex w-full flex-col gap-2">
         <h1 class="cursor-default">Contraseña</h1>
-        <input
-          class="input-style-1"
-          type="password"
-          placeholder="contraseña"
-          formControlName="password"
-        />
+        <div class="relative w-full">
+          <input
+            class="input-style-1 w-full"
+            [type]="showPassword ? 'text' : 'password'"
+            placeholder="Contraseña"
+            formControlName="password"
+          />
+          <button
+            type="button"
+            class="absolute inset-y-0 right-0 flex items-center px-3 text-gray-500"
+            [pTooltip]="showPassword ? 'Ocultar' : 'Mostrar'"
+            tooltipPosition="top"
+            showDelay="1000"
+            (click)="showPassword = !showPassword"
+          >
+            <i *ngIf="showPassword" class="fa fa-eye-slash"></i>
+            <i *ngIf="!showPassword" class="fa fa-eye"></i>
+          </button>
+        </div>
       </div>
 
       <div class="w-full pt-6">
