@@ -11,6 +11,7 @@ import { ToastModule } from 'primeng/toast';
 import { InputTextModule } from 'primeng/inputtext';
 import { InputGroupModule } from 'primeng/inputgroup';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
+import { ToolbarModule } from 'primeng/toolbar';
 
 @Component({
   selector: 'app-clientes-pages',
@@ -25,6 +26,7 @@ import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
     CommonModule,
     InputGroupModule,
     InputGroupAddonModule,
+    ToolbarModule
   ],
   templateUrl: './clientes-pages.component.html',
   styleUrl: './clientes-pages.component.css',
