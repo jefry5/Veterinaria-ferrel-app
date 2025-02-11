@@ -29,7 +29,7 @@ body {
 
 /* Define un input customizado 1 con Tailwind CSS */
 .input-style-1 {
-  @apply flex-1 appearance-none rounded-lg border border-gray-200 bg-white px-4 py-2 text-base text-gray-700 placeholder-gray-400 shadow-md focus:border-transparent focus:outline-none focus:ring-2 focus:ring-purple-600;
+  @apply flex-1 appearance-none rounded-lg border border-gray-200 bg-white pl-4 pr-10 py-2 text-base text-gray-700 placeholder-gray-400 shadow-md focus:border-transparent focus:outline-none focus:ring-2 focus:ring-purple-600;
 }
 
 /* Define una imagen de fondo customizado con Tailwind CSS */

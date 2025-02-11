@@ -1,0 +1,35 @@
+<p-confirmdialog #cd>
+  <ng-template
+    #headless
+    let-message
+    let-onAccept="onAccept"
+    let-onReject="onReject"
+  >
+    <div
+      class="bg-surface-0 dark:bg-surface-900 flex flex-col items-center rounded p-8"
+    >
+      <div
+        class="bg-primary text-primary-contrast -mt-20 inline-flex h-24 w-24 items-center justify-center rounded-full"
+      >
+        <i class="fa fa-question !text-5xl"></i>
+      </div>
+      <span class="mb-2 mt-6 block text-2xl font-bold">{{
+        message.header
+      }}</span>
+      <p class="mb-0">{{ message.message }}</p>
+      <div class="mt-6 flex items-center gap-2">
+        <p-button
+          label="Save"
+          (onClick)="onAccept()"
+          styleClass="w-32"
+        ></p-button>
+        <p-button
+          label="Cancel"
+          [outlined]="true"
+          (onClick)="onReject()"
+          styleClass="w-32"
+        ></p-button>
+      </div>
+    </div>
+  </ng-template>
+</p-confirmdialog>
