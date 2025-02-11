@@ -18,15 +18,17 @@ import { ErrorInterceptor } from '@core/interceptors/error/error.interceptor';
 import { SideBarService } from '@core/services/side-bar/side-bar.service';
 import { TokenService } from '@core/services/JWT/token.service';
 import { finalize } from 'rxjs';
+import { Tooltip } from 'primeng/tooltip';
 
 @Component({
   selector: 'app-auth-page',
-  imports: [CommonModule, ToastModule, RippleModule, FormsModule, ReactiveFormsModule],
+  imports: [CommonModule, ToastModule, RippleModule, FormsModule, ReactiveFormsModule, Tooltip],
   templateUrl: './auth-page.component.html',
 })
 export class AuthPageComponent {
   //Variables de control de la pantalla de carga y formulario
   isLoading: boolean = false;
+  showPassword: boolean = false;
   user: string = '';
   pass: string = '';
 
