@@ -1,0 +1,32 @@
+<p-dialog
+[(visible)]="visible"
+[modal]="true"
+[style]="{ width: '25rem' }"
+(onHide)="closeDialog()"
+[draggable]="false"
+[resizable]="false"
+>
+  <form class="flex h-full w-full flex-col gap-5">
+    <div class="flex w-full flex-col gap-1">
+      <h1 class="cursor-default">Nombre</h1>
+      <input class="input-style-1" type="text" placeholder="Nombre" />
+    </div>
+    <div class="flex w-full flex-col gap-1">
+      <h1 class="cursor-default">Apellido</h1>
+      <input class="input-style-1" type="text" placeholder="Apellido" />
+    </div>
+    <div class="flex w-full flex-col gap-1">
+      <h1 class="cursor-default">DNI</h1>
+      <input class="input-style-1" type="text" placeholder="DNI" />
+    </div>
+    <div class="flex w-full flex-col gap-1">
+      <h1 class="cursor-default">Teléfono</h1>
+      <input class="input-style-1" type="number" placeholder="Teléfono" />
+    </div>
+    <div class="flex w-full flex-col gap-1">
+      <h1 class="cursor-default">Correo</h1>
+      <input class="input-style-1" type="text" placeholder="Correo" />
+    </div>
+    <p-button label="Registrar" class="button-style-2 w-full"></p-button>
+  </form>
+</p-dialog>

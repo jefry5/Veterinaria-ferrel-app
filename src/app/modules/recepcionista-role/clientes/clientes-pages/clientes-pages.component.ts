@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { TableModule } from 'primeng/table';
 import { CardModule } from 'primeng/card';
 import { ButtonModule } from 'primeng/button';
@@ -6,72 +6,57 @@ import { BadgeModule } from 'primeng/badge';
 import { DialogModule } from 'primeng/dialog';
 import { CommonModule } from '@angular/common';
 import { ConfirmationService, MessageService } from 'primeng/api';
-import { ConfirmDialogModule } from 'primeng/confirmdialog';
-import { ToastModule } from 'primeng/toast';
 import { InputTextModule } from 'primeng/inputtext';
-import { InputGroupModule } from 'primeng/inputgroup';
-import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
-import { ToolbarModule } from 'primeng/toolbar';
+import { Cliente } from '@core/models/cliente.model';
+import { ClientesService } from '@core/services/recepcionista-role/clientes/clientes.service';
+import { FormsModule } from '@angular/forms';
+import { InputIcon } from 'primeng/inputicon';
+import { IconField } from 'primeng/iconfield';
+import { RegistrarClienteComponent } from '../components/resgistrar-cliente/registrar-cliente/registrar-cliente.component';
 
 @Component({
   selector: 'app-clientes-pages',
   imports: [
-    BadgeModule,
-    ConfirmDialogModule,
-    ToastModule,
-    InputTextModule,
+    FormsModule,
     ButtonModule,
     TableModule,
     DialogModule,
+    InputTextModule,
     CommonModule,
-    InputGroupModule,
-    InputGroupAddonModule,
-    ToolbarModule
+    InputIcon,
+    IconField,
+    RegistrarClienteComponent,
   ],
   templateUrl: './clientes-pages.component.html',
   styleUrl: './clientes-pages.component.css',
   providers: [ConfirmationService, MessageService],
 })
-export class ClientesPagesComponent {
-  filtrarTabla($event: Event) {}
-
- 
-  
-
+export class ClientesPagesComponent implements OnInit {
+  clientes: Cliente[] = [];
   
   showDialog: boolean = false;
+  globalFilterValue: string = '';
 
-  // Datos de ejemplo mejor estructurados
-  clientes: any[] = [
-    {
-      dni: '12345678',
-      nombre: 'Juan',
-      apellido: 'Pérez',
-      numero: '123456789',
+  ngOnInit(): void {
+    this.cargarClientes();
+  }
 
-    },
-    {
-      dni: '87654321',
-      nombre: 'María',
-      apellido: 'Gómez',
-      numero: '987654321',
-    }
-  ];
+  cargarClientes(): void {
+    this.clientesService.getClientes().subscribe({
+      next: (data: any) => {
+        this.clientes = data.content;
+      },
+      error: (err) => {
+        console.error('Error al cargar clientes', err);
+      },
+    });
+  }
 
-  // Función para determinar severidad del badge
-  stockSeverity(
-    cliente: any,
-  ):
-    | 'info'
-    | 'success'
-    | 'warn'
-    | 'danger'
-    | 'secondary'
-    | 'contrast'
-    | 'help'
-    | 'primary' {
-    // your logic here
-    return 'info'; // replace with actual logic
+  constructor(private clientesService: ClientesService) {}
+
+  clearFilters(dt: any): void {
+    dt.reset();
+    this.globalFilterValue = '';
   }
 
   // Función para clases de fila
@@ -83,6 +68,6 @@ export class ClientesPagesComponent {
   // Función para estilos de fila
   rowStyle(cliente: any): any {
     // Ejemplo: Resaltar si tiene muchas llamadas
-    return cliente.llamadas > 10 ? { 'background-color': '#fff3cd' } : {};
+    return cliente.activo == true ? { 'background-color': '#fff3cd' } : {};
   }
 }
