@@ -1,49 +1,101 @@
-<div class="p-4 flex">
-    <div class="w-3/4 pr-4">
-        <h2 class="text-lg font-bold text-center mb-3">Consultar Stock</h2>
+<div class="flex h-full w-full flex-col items-center justify-center bg-white p-6">
+  
+  <!-- Botón "Ver Orden de Pago" arriba -->
+  <div class="w-3/4 flex justify-between items-center mb-4">
+    <h2 class="text-2xl font-bold">Consultar Stock</h2>
+    <p-button 
+      label="Ver Orden de Pago"
+      icon="fa fa-shopping-cart"
+      severity="primary"
+      class="px-4 py-2"
+      (click)="irAOrdenPago()">
+    </p-button>
+  </div>
 
-        <input type="text" pInputText placeholder="Buscar producto..." (input)="filtrarTabla($event)" class="w-full mb-3"/>
-        
-        <div class="mb-4 flex justify-center">
-            <p-message *ngIf="filteredProductos.length === 0" severity="info" text="⚠️ 0 registros encontrados." closable="true"></p-message>
+  <p-table
+    #dt
+    class="w-3/4"
+    [value]="filteredProductos"
+    [globalFilterFields]="['nombre', 'stock', 'precio_unitario']"
+    dataKey="id_producto"
+    [tableStyle]="{ 'min-width': '50rem' }"
+    [rows]="5"
+    [paginator]="true"
+  >
+
+    <!-- Buscador Global -->
+    <ng-template pTemplate="caption">
+      <div class="flex items-center gap-2">
+        <span class="fa fa-search"></span>
+        <input
+          pInputText
+          type="text"
+          placeholder="Buscar producto..."
+          [(ngModel)]="globalFilterValue"
+          (input)="dt.filterGlobal(globalFilterValue, 'contains')"
+          class="p-inputtext w-full"
+        />
+        <p-button
+          icon="fa fa-eraser"
+          [rounded]="true"
+          severity="secondary"
+          pTooltip="Limpiar Filtro"
+          tooltipPosition="top"
+          showDelay="1000"
+          (click)="clearFilters(dt)">
+        </p-button>
+      </div>
+    </ng-template>
+
+    <!-- Encabezado de la tabla -->
+    <ng-template pTemplate="header">
+      <tr>
+        <th pSortableColumn="nombre">Producto <p-sortIcon field="nombre" /></th>
+        <th pSortableColumn="stock">Stock <p-sortIcon field="stock" /></th>
+        <th pSortableColumn="precio_unitario">Precio <p-sortIcon field="precio_unitario" /></th>
+        <th>Acciones</th>
+      </tr>
+    </ng-template>
+
+
+   <!-- Cuerpo de la tabla -->
+   <ng-template pTemplate="body" let-producto>
+    <tr>
+      <td>{{ producto.nombre }}</td>
+      <td class="text-center">{{ producto.stock }}</td>
+      <td class="text-center">S/ {{ producto.precio_unitario }}</td>
+      <td class="text-center">
+        <div class="flex justify-center items-center">
+          <p-button 
+            icon="fa fa-cart-plus" 
+            severity="success" 
+            rounded 
+            pTooltip="Agregar al carrito" 
+            tooltipPosition="top"
+            class="h-10 w-10 flex items-center justify-center"
+            (click)="abrirModal(producto)">
+          </p-button>
         </div>
+      </td>
+    </tr>
+  </ng-template>
 
-        <p-table [value]="filteredProductos" [paginator]="true" [rows]="5">
-            <ng-template pTemplate="header">
-                <tr>
-                    <th>Nombre</th>
-                    <th>Stock</th>
-                    <th>Precio</th>
-                    <th>Acciones</th>
-                </tr>
-            </ng-template>
-            <ng-template pTemplate="body" let-producto>
-                <tr>
-                    <td>{{ producto.nombre }}</td>
-                    <td>{{ producto.stock }}</td>
-                    <td>S/ {{ producto.precio }}</td>
-                    <td>
-                        <button pButton class="p-button-danger p-1" (click)="disminuirCantidad(producto)">
-                            <i class="fas fa-minus"></i>
-                        </button>
-                        <button pButton class="p-button-primary p-1 ml-2" (click)="aumentarCantidad(producto)">
-                            <i class="fas fa-plus"></i>
-                        </button>
-                    </td>
-                </tr>
-            </ng-template>
-        </p-table>
-    </div>
-
-    <div class="w-1/4 p-4 bg-gray-100 shadow-md rounded">
-        <h3 class="text-xl font-bold mb-3">Resumen del Pedido</h3>
-
-        <div *ngFor="let producto of productosSeleccionados">
-            <div class="flex justify-between">
-                <span>{{ producto.nombre }} ({{ producto.cantidad }})</span>
-            </div>
-        </div>
-
-        <button pButton label="Generar Orden de Pago" class="p-button-success w-full mt-3" (click)="irAOrdenPago()"></button>
-    </div>
+    <!-- Mensaje cuando no hay productos -->
+    <ng-template pTemplate="emptymessage">
+      <tr>
+        <td colspan="4" class="py-4 text-center text-sm text-gray-400">
+          No se encontraron productos en el stock.
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
 </div>
+
+<!-- Modal para seleccionar cantidad -->
+<app-agregar-producto-modal 
+  *ngIf="mostrarModal" 
+  [visible]="mostrarModal" 
+  [producto]="productoSeleccionado"
+  (onClose)="cerrarModal()"
+  (onAgregar)="agregarProductoOrden($event)">
+</app-agregar-producto-modal>
