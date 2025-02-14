@@ -10,7 +10,7 @@
   #dt
   class="w-3/4"
   [value]="clientes"
-  [globalFilterFields]="['id', 'nombre', 'raza', 'edad', 'sexo']"
+  [globalFilterFields]="['dni', 'nombre', 'apellido', 'telefono', 'email']"
   dataKey="id"
   [tableStyle]="{ 'min-width': '50rem' }"
   [rows]="5"
@@ -25,7 +25,7 @@
         <input
           pInputText
           type="text"
-          placeholder="Buscador global"
+          placeholder="Buscador por dni"
           [(ngModel)]="globalFilterValue"
           (input)="dt.filterGlobal(globalFilterValue, 'contains')"
         />
@@ -41,7 +41,6 @@
       </div>
     </p-iconfield>
   </ng-template>
-  >
   <ng-template pTemplate="header">
     <tr>
       <th pSortableColumn="dni">
@@ -64,10 +63,12 @@
         Correo
         <p-sortIcon field="email"></p-sortIcon>
       </th>
+      <th pSortableColumn="direccion">
+        Dirección
+        <p-sortIcon field="direccion"></p-sortIcon>
       <th>Opciones</th>
     </tr>
   </ng-template>
-
   <ng-template pTemplate="body" let-cliente>
     <tr [ngClass]="rowClass(cliente)" [ngStyle]="rowStyle(cliente)">
       <td>{{ cliente.dni }}</td>
@@ -75,6 +76,7 @@
       <td>{{ cliente.apellido }}</td>
       <td>{{ cliente.telefono }}</td>
       <td>{{ cliente.email }}</td>
+      <td>{{ cliente.direccion }}</td>
       <td class="flex gap-2">
         <p-button
           icon="fa fa-pencil"
@@ -91,6 +93,7 @@
           pTooltip="Eliminar"
           tooltipPosition="top"
           showDelay="1000"
+          (click)="confirmDelete(cliente)"
         ></p-button>
       </td>
     </tr>
@@ -104,4 +107,6 @@
     </tr>
   </ng-template>
 </p-table>
-<app-registrar-cliente [(visible)]="showDialog" />
+<app-registrar-cliente [(visible)]="showDialog"></app-registrar-cliente>
+<p-confirmDialog></p-confirmDialog>
+<p-toast></p-toast>

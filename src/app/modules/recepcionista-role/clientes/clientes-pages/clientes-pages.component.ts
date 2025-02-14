@@ -13,6 +13,9 @@ import { FormsModule } from '@angular/forms';
 import { InputIcon } from 'primeng/inputicon';
 import { IconField } from 'primeng/iconfield';
 import { RegistrarClienteComponent } from '../components/resgistrar-cliente/registrar-cliente/registrar-cliente.component';
+import { Tooltip } from 'primeng/tooltip';
+import { ToastModule } from 'primeng/toast';
+import { ConfirmDialog } from 'primeng/confirmdialog';
 
 @Component({
   selector: 'app-clientes-pages',
@@ -26,6 +29,16 @@ import { RegistrarClienteComponent } from '../components/resgistrar-cliente/regi
     InputIcon,
     IconField,
     RegistrarClienteComponent,
+    TableModule,
+    InputTextModule,
+    IconField,
+    InputIcon,
+    ButtonModule,
+    Tooltip,
+    FormsModule,
+    CommonModule,
+    ToastModule,
+    ConfirmDialog
   ],
   templateUrl: './clientes-pages.component.html',
   styleUrl: './clientes-pages.component.css',
@@ -33,8 +46,8 @@ import { RegistrarClienteComponent } from '../components/resgistrar-cliente/regi
 })
 export class ClientesPagesComponent implements OnInit {
   clientes: Cliente[] = [];
-  
   showDialog: boolean = false;
+
   globalFilterValue: string = '';
 
   ngOnInit(): void {
@@ -52,7 +65,10 @@ export class ClientesPagesComponent implements OnInit {
     });
   }
 
-  constructor(private clientesService: ClientesService) {}
+  constructor(private clientesService: ClientesService,
+    private confirmationService: ConfirmationService,
+    private messageService: MessageService
+  ) {}
 
   clearFilters(dt: any): void {
     dt.reset();
@@ -69,5 +85,26 @@ export class ClientesPagesComponent implements OnInit {
   rowStyle(cliente: any): any {
     // Ejemplo: Resaltar si tiene muchas llamadas
     return cliente.activo == true ? { 'background-color': '#fff3cd' } : {};
+  }
+  confirmDelete(cliente: Cliente) {
+    this.confirmationService.confirm({
+      message: `¿Está seguro de que desea eliminar al cliente ${cliente.nombre} ${cliente.apellido}?`,
+      accept: () => {
+        //this.deleteCliente(cliente.id);
+      }
+    });
+  }
+
+  // por implementar
+  deleteCliente(id: string) {
+    this.clientesService.deleteCliente(id).subscribe({
+      next: () => {
+        this.messageService.add({ severity: 'success', summary: 'Cliente eliminado', detail: 'El cliente fue eliminado exitosamente' });
+        this.cargarClientes(); // Recargar la lista de clientes
+      },
+      error: () => {
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'No se pudo eliminar el cliente' });
+      }
+    });
   }
 }
