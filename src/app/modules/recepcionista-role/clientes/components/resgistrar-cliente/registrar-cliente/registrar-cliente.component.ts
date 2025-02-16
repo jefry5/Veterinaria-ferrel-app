@@ -19,6 +19,7 @@ import { MessagesService } from '@core/services/message/messages.service';
 })
 export class RegistrarClienteComponent implements OnInit {
   @Output() visibleChange = new EventEmitter<boolean>();
+  @Output() clienteRegistrado = new EventEmitter<void>();
   @Input() visible: boolean = false;
   public clienteForm!: FormGroup;
 
@@ -67,6 +68,7 @@ export class RegistrarClienteComponent implements OnInit {
           'Cliente registrado',
           'El cliente se registró exitosamente',
         );
+        this.clienteRegistrado.emit();
         this.closeDialog();
       },
       error: (err) => {

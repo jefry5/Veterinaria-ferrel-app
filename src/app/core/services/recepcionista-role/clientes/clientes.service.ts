@@ -23,7 +23,7 @@ export class ClientesService {
     return this.http.post(`${this.BASE_URL}/cliente/register`, cliente);
   }
   //metodo para borrar cliente por id
-  deleteCliente(id: string) {
+  deleteCliente(id: number) {
     return this.http.delete(`${this.BASE_URL}/cliente/${id}`);
   }
 

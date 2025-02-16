@@ -108,7 +108,7 @@
     </tr>
   </ng-template>
 </p-table>
-<app-registrar-cliente [(visible)]="showRegistrarDialog"></app-registrar-cliente>
+<app-registrar-cliente [(visible)]="showRegistrarDialog" (clienteRegistrado)="cargarClientes()"></app-registrar-cliente>
 <app-modificar-cliente [(visible)]="showModificarDialog" [cliente]="clienteSeleccionado" (clienteModificado)="cargarClientes()" ></app-modificar-cliente>
 <p-confirmDialog></p-confirmDialog>
 <p-toast></p-toast>

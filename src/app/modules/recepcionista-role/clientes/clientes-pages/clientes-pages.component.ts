@@ -91,13 +91,16 @@ export class ClientesPagesComponent implements OnInit {
     this.confirmationService.confirm({
       message: `¿Está seguro de que desea eliminar al cliente ${cliente.nombre} ${cliente.apellido}?`,
       accept: () => {
-        //this.deleteCliente(cliente.id);
+        if (cliente.id) {
+          this.deleteCliente(cliente.id);
+        } else {
+          this.messageService.add({ severity: 'error', summary: 'Error', detail: 'ID del cliente no encontrado' });
+        }
       }
     });
   }
 
-  // por implementar
-  deleteCliente(id: string) {
+  deleteCliente(id: number) {
     this.clientesService.deleteCliente(id).subscribe({
       next: () => {
         this.messageService.add({ severity: 'success', summary: 'Cliente eliminado', detail: 'El cliente fue eliminado exitosamente' });
@@ -108,6 +111,7 @@ export class ClientesPagesComponent implements OnInit {
       }
     });
   }
+
   openModificarDialog(cliente: Cliente) {
     this.clienteSeleccionado = cliente;
     this.showModificarDialog = true;
