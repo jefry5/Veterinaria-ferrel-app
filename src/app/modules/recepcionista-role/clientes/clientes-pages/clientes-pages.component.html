@@ -3,7 +3,7 @@
   <p-button
     label="Registrar cliente"
     class="bt-1"
-    (onClick)="showDialog = true"
+    (onClick)="showRegistrarDialog = true"
   ></p-button>
 </div>
 <p-table
@@ -85,6 +85,7 @@
           pTooltip="Modificar"
           tooltipPosition="top"
           showDelay="1000"
+          (click)="openModificarDialog(cliente)"
         ></p-button>
         <p-button
           icon="fa fa-trash"
@@ -107,6 +108,7 @@
     </tr>
   </ng-template>
 </p-table>
-<app-registrar-cliente [(visible)]="showDialog"></app-registrar-cliente>
+<app-registrar-cliente [(visible)]="showRegistrarDialog"></app-registrar-cliente>
+<app-modificar-cliente [(visible)]="showModificarDialog" [cliente]="clienteSeleccionado" (clienteModificado)="cargarClientes()" ></app-modificar-cliente>
 <p-confirmDialog></p-confirmDialog>
 <p-toast></p-toast>

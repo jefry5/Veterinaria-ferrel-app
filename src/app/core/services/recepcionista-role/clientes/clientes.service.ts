@@ -3,7 +3,7 @@ import { HttpClient, JsonpClientBackend } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Cliente } from '@core/models/cliente.model';
 import { TokenService } from '@core/services/JWT/token.service';
-import { catchError, Observable, throwError } from 'rxjs';
+import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -18,22 +18,10 @@ export class ClientesService {
   ) {
     this.BASE_URL = environment.url;
   }
-   //Método para registrar cliente
-   postRegistrarCliente(cliente: Cliente): Observable<any> {
-    if (!this.tokenService.isTokenValid()) {
-      return throwError(() => new Error('Token inválido o expirado'));
-    }
 
-    return this.http.post(`${this.BASE_URL}/cliente/register`, cliente).pipe(
-      catchError((error) => {
-        if (error.status === 403) {
-          return throwError(() => new Error('No tiene permisos para realizar esta acción'));
-        }
-        return throwError(() => new Error('Error al registrar cliente'));
-      })
-    );
+  postRegistrarCliente(cliente: Cliente) {
+    return this.http.post(`${this.BASE_URL}/cliente/register`, cliente);
   }
-
   //metodo para borrar cliente por id
   deleteCliente(id: string) {
     return this.http.delete(`${this.BASE_URL}/cliente/${id}`);
@@ -50,7 +38,7 @@ export class ClientesService {
   }
 
   //metodo para modificar cliente
-  updateCliente(cliente: Cliente) {
-    return this.http.put(`${this.BASE_URL}/cliente/edit`, cliente);
+  updateCliente(cliente: Cliente, id: number) {
+    return this.http.put(`${this.BASE_URL}/cliente/edit/${id}`, cliente);
   }
 }

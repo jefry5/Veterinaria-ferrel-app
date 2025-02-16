@@ -10,7 +10,6 @@ import { ButtonModule } from 'primeng/button';
 import { Dialog } from 'primeng/dialog';
 import { ClientesService } from '@core/services/recepcionista-role/clientes/clientes.service';
 import { CommonModule } from '@angular/common';
-import { ConfirmationService } from 'primeng/api';
 import { MessagesService } from '@core/services/message/messages.service';
 @Component({
   selector: 'app-registrar-cliente',
@@ -26,8 +25,7 @@ export class RegistrarClienteComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private clientesService: ClientesService,
-    private confirmationService: ConfirmationService, //usar para errores
-    private messagesService: MessagesService,// Usar para errores
+    private messagesService: MessagesService, // Usar para errores
   ) {}
   ngOnInit(): void {
     this.clienteForm = this.fb.group({
@@ -67,7 +65,7 @@ export class RegistrarClienteComponent implements OnInit {
         // Manejar la respuesta exitosa
         this.messagesService.successMessage(
           'Cliente registrado',
-          'El cliente se registró exitosamente'
+          'El cliente se registró exitosamente',
         );
         this.closeDialog();
       },
@@ -75,8 +73,8 @@ export class RegistrarClienteComponent implements OnInit {
         // Manejar el error
         this.messagesService.errorMessage(
           'Error al registrar cliente',
-          'No se pudo registrar el cliente, por favor intentar de nuevo'
-        )
+          'No se pudo registrar el cliente, por favor intentar de nuevo',
+        );
       },
     });
   }

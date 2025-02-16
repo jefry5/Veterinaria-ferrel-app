@@ -1,1 +1,134 @@
-<p>modificar-cliente works!</p>
+<p-dialog
+  [(visible)]="visible"
+  [modal]="true"
+  [style]="{ width: '25rem' }"
+  (onHide)="closeDialog()"
+  [draggable]="false"
+  [resizable]="false"
+>
+  <ng-template #header>
+    <div class="inline-flex items-center justify-center gap-2">
+      <span class="whitespace-nowrap font-bold">Modificar Cliente</span>
+    </div>
+  </ng-template>
+
+  <form
+    [formGroup]="clienteForm"
+    (ngSubmit)="modificarCliente()"
+    class="flex h-full w-full flex-col gap-5"
+  >
+    <div class="flex w-full flex-col gap-1">
+      <h1 class="cursor-default">Nombre</h1>
+      <input
+        class="input-style-1"
+        type="text"
+        placeholder="Nombre"
+        formControlName="nombre"
+      />
+      <small
+        *ngIf="
+          clienteForm.get('nombre')?.touched &&
+          clienteForm.get('nombre')?.invalid
+        "
+        class="p-error"
+      >
+        El nombre es obligatorio.
+      </small>
+    </div>
+    <div class="flex w-full flex-col gap-1">
+      <h1 class="cursor-default">Apellido</h1>
+      <input
+        class="input-style-1"
+        type="text"
+        placeholder="Apellido"
+        formControlName="apellido"
+      />
+      <small
+        *ngIf="
+          clienteForm.get('apellido')?.touched &&
+          clienteForm.get('apellido')?.invalid
+        "
+        class="p-error"
+      >
+        El apellido es obligatorio.
+      </small>
+    </div>
+    <div class="flex w-full flex-col gap-1">
+      <h1 class="cursor-default">DNI</h1>
+      <input
+        class="input-style-1"
+        type="text"
+        placeholder="DNI"
+        formControlName="dni"
+      />
+      <small
+        *ngIf="
+          clienteForm.get('dni')?.touched && clienteForm.get('dni')?.invalid
+        "
+        class="p-error"
+      >
+        El DNI es obligatorio y debe tener 8 dígitos.
+      </small>
+    </div>
+    <div class="flex w-full flex-col gap-1">
+      <h1 class="cursor-default">Teléfono</h1>
+      <input
+        class="input-style-1"
+        type="number"
+        placeholder="Teléfono"
+        formControlName="telefono"
+      />
+      <small
+        *ngIf="
+          clienteForm.get('telefono')?.touched &&
+          clienteForm.get('telefono')?.invalid
+        "
+        class="p-error"
+      >
+        El teléfono es obligatorio, debe contener sólo números y tener 9
+        dígitos.
+      </small>
+    </div>
+    <div class="flex w-full flex-col gap-1">
+      <h1 class="cursor-default">Direccion</h1>
+      <input
+        class="input-style-1"
+        type="text"
+        placeholder="Direccion"
+        formControlName="direccion"
+      />
+      <small
+        *ngIf="
+          clienteForm.get('direccion')?.touched &&
+          clienteForm.get('direccion')?.invalid
+        "
+        class="p-error"
+      >
+        El domicilio es obligatorio.
+      </small>
+    </div>
+    <div class="flex w-full flex-col gap-1">
+      <h1 class="cursor-default">Correo</h1>
+      <input
+        class="input-style-1"
+        type="text"
+        placeholder="Correo"
+        formControlName="email"
+      />
+      <small
+        *ngIf="
+          clienteForm.get('email')?.touched &&
+          clienteForm.get('email')?.invalid
+        "
+        class="p-error"
+      >
+        Ingrese un correo válido.
+      </small>
+    </div>
+    <p-button
+      type="submit"
+      label="Modificar"
+      class="button-style-2 w-full"
+    ></p-button>
+  </form>
+</p-dialog>

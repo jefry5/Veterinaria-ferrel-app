@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { TableModule } from 'primeng/table';
-import { CardModule } from 'primeng/card';
 import { ButtonModule } from 'primeng/button';
-import { BadgeModule } from 'primeng/badge';
 import { DialogModule } from 'primeng/dialog';
 import { CommonModule } from '@angular/common';
 import { ConfirmationService, MessageService } from 'primeng/api';
@@ -16,6 +14,7 @@ import { RegistrarClienteComponent } from '../components/resgistrar-cliente/regi
 import { Tooltip } from 'primeng/tooltip';
 import { ToastModule } from 'primeng/toast';
 import { ConfirmDialog } from 'primeng/confirmdialog';
+import { ModificarClienteComponent } from "../components/modificar-cliente/modificar-cliente/modificar-cliente.component";
 
 @Component({
   selector: 'app-clientes-pages',
@@ -38,17 +37,25 @@ import { ConfirmDialog } from 'primeng/confirmdialog';
     FormsModule,
     CommonModule,
     ToastModule,
-    ConfirmDialog
-  ],
+    ConfirmDialog,
+    ModificarClienteComponent
+],
   templateUrl: './clientes-pages.component.html',
   styleUrl: './clientes-pages.component.css',
   providers: [ConfirmationService, MessageService],
 })
 export class ClientesPagesComponent implements OnInit {
   clientes: Cliente[] = [];
-  showDialog: boolean = false;
-
+  showRegistrarDialog: boolean = false;
+  showModificarDialog: boolean = false;
+  clienteSeleccionado!: Cliente;
   globalFilterValue: string = '';
+
+  constructor(
+    private clientesService: ClientesService,
+    private confirmationService: ConfirmationService,
+    private messageService: MessageService
+  ) {}
 
   ngOnInit(): void {
     this.cargarClientes();
@@ -65,11 +72,6 @@ export class ClientesPagesComponent implements OnInit {
     });
   }
 
-  constructor(private clientesService: ClientesService,
-    private confirmationService: ConfirmationService,
-    private messageService: MessageService
-  ) {}
-
   clearFilters(dt: any): void {
     dt.reset();
     this.globalFilterValue = '';
@@ -77,15 +79,14 @@ export class ClientesPagesComponent implements OnInit {
 
   // Función para clases de fila
   rowClass(cliente: any): string {
-    // Ejemplo: Si está inactivo
     return cliente.activo ? '' : 'inactive-row';
   }
 
   // Función para estilos de fila
   rowStyle(cliente: any): any {
-    // Ejemplo: Resaltar si tiene muchas llamadas
     return cliente.activo == true ? { 'background-color': '#fff3cd' } : {};
   }
+
   confirmDelete(cliente: Cliente) {
     this.confirmationService.confirm({
       message: `¿Está seguro de que desea eliminar al cliente ${cliente.nombre} ${cliente.apellido}?`,
@@ -106,5 +107,9 @@ export class ClientesPagesComponent implements OnInit {
         this.messageService.add({ severity: 'error', summary: 'Error', detail: 'No se pudo eliminar el cliente' });
       }
     });
+  }
+  openModificarDialog(cliente: Cliente) {
+    this.clienteSeleccionado = cliente;
+    this.showModificarDialog = true;
   }
 }
