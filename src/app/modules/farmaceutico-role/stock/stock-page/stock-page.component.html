@@ -1,28 +1,28 @@
 <div class="flex h-full w-full flex-col items-center justify-center bg-white p-6">
-  
-  <!-- Botón "Ver Orden de Pago" arriba -->
+
+  <!-- titulo -->
   <div class="w-3/4 flex justify-between items-center mb-4">
-    <h2 class="text-2xl font-bold">Consultar Stock</h2>
+    <h2 class="text-3xl font-bold">Consultar Stock 📦</h2>
     <p-button 
       label="Ver Orden de Pago"
       icon="fa fa-shopping-cart"
       severity="primary"
       class="px-4 py-2"
-      (click)="irAOrdenPago()">
+      routerLink="/orden">
     </p-button>
   </div>
 
+  <!-- Tabla-->
   <p-table
     #dt
     class="w-3/4"
     [value]="filteredProductos"
-    [globalFilterFields]="['nombre', 'stock', 'precio_unitario']"
+    [globalFilterFields]="['nombre','stock','precio_unitario']"
     dataKey="id_producto"
     [tableStyle]="{ 'min-width': '50rem' }"
-    [rows]="5"
+    [rows]="6"
     [paginator]="true"
   >
-
     <!-- Buscador Global -->
     <ng-template pTemplate="caption">
       <div class="flex items-center gap-2">
@@ -57,15 +57,13 @@
       </tr>
     </ng-template>
 
-
-   <!-- Cuerpo de la tabla -->
-   <ng-template pTemplate="body" let-producto>
-    <tr>
-      <td>{{ producto.nombre }}</td>
-      <td class="text-center">{{ producto.stock }}</td>
-      <td class="text-center">S/ {{ producto.precio_unitario }}</td>
-      <td class="text-center">
-        <div class="flex justify-center items-center">
+    <!-- Cuerpo de la tabla -->
+    <ng-template pTemplate="body" let-producto>
+      <tr>
+        <td>{{ producto.nombre }}</td>
+        <td class="text-center">{{ producto.stock }}</td>
+        <td class="text-center">S/ {{ producto.precio_unitario?.toFixed(2) }}</td>
+        <td class="text-center">
           <p-button 
             icon="fa fa-cart-plus" 
             severity="success" 
@@ -75,10 +73,9 @@
             class="h-10 w-10 flex items-center justify-center"
             (click)="abrirModal(producto)">
           </p-button>
-        </div>
-      </td>
-    </tr>
-  </ng-template>
+        </td>
+      </tr>
+    </ng-template>
 
     <!-- Mensaje cuando no hay productos -->
     <ng-template pTemplate="emptymessage">
@@ -97,5 +94,5 @@
   [visible]="mostrarModal" 
   [producto]="productoSeleccionado"
   (onClose)="cerrarModal()"
-  (onAgregar)="agregarProductoOrden($event)">
+  (onProductoAgregado)="actualizarStock()">
 </app-agregar-producto-modal>

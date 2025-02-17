@@ -1,5 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Producto } from '@core/models/producto.model';
+import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -13,7 +15,7 @@ export class StockService {
   }
 
   //metodo para obtener la lista de productos disponibles en stock
-  getStockProductos() {
-    return this.http.get(`${this.BASE_URL}/api/productos/listar`);
+  listarProductos(): Observable<Producto[]> {
+    return this.http.get<Producto[]>(`${this.BASE_URL}/api/productos/listar`);
   }
 }

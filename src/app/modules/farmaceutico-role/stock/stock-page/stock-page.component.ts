@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { TableModule } from 'primeng/table';
+import { Table, TableModule } from 'primeng/table';
 import { InputTextModule } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
 import { RouterModule } from '@angular/router';
@@ -11,17 +11,11 @@ import { StockService } from '@core/services/farmaceutico-role/stock/stock.servi
 import { SubscriptionService } from '@core/services/subscription-manager/subscription.service';
 import { Router } from '@angular/router';
 import { AgregarProductoModalComponent } from '../components/agregar-producto-modal/agregar-producto-modal.component';
-
-interface Producto {
-  id_producto: number;
-  nombre: string;
-  precio_unitario: number;
-  stock: number;
-  cantidad?: number;
-}
+import { Producto } from '@core/models/producto.model';
 
 @Component({
   selector: 'app-stock-page',
+  standalone: true,
   templateUrl: './stock-page.component.html',
   imports: [
     CommonModule,
@@ -33,14 +27,12 @@ interface Producto {
     MessageModule,
     AgregarProductoModalComponent,
   ],
-  providers: [MessageService],
+  providers: [StockService],
 })
 export class StockPageComponent implements OnInit, OnDestroy {
   productos: Producto[] = [];
   filteredProductos: Producto[] = [];
   globalFilterValue: string = '';
-  productosSeleccionados: Producto[] = [];
-
   mostrarModal: boolean = false;
   productoSeleccionado: Producto | null = null;
 
@@ -53,7 +45,6 @@ export class StockPageComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.cargarProductos();
-    this.cargarCarrito();
   }
 
   ngOnDestroy(): void {
@@ -61,30 +52,22 @@ export class StockPageComponent implements OnInit, OnDestroy {
   }
 
   cargarProductos(): void {
-    const sub = this.stockService.getStockProductos().subscribe({
+    this.stockService.listarProductos().subscribe({
       next: (resp: any) => {
-        this.productos = resp;
+        //duda: no se si ordenarlo ascendentemente desde un inicio o dejarlo como responda la api
+        this.productos = resp.sort((a: Producto, b: Producto) => a.nombre.localeCompare(b.nombre));
         this.filteredProductos = [...this.productos];
       },
       error: () => {
         this.messageService.add({
           severity: 'error',
           summary: 'Error',
-          detail: 'No se pudieron cargar los productos, intenta de nuevo.',
+          detail: 'No se pudieron cargar los productos, intenta nuevamente.',
         });
-      },
+      }
     });
-
-    this.subscriptionService.add(sub);
   }
   
-  cargarCarrito(): void {
-    const productosGuardados = JSON.parse(
-      localStorage.getItem('ordenPago') || '[]',
-    );
-    this.productosSeleccionados = productosGuardados;
-  }
-
   abrirModal(producto: Producto) {
     this.productoSeleccionado = producto;
     this.mostrarModal = true;
@@ -94,43 +77,13 @@ export class StockPageComponent implements OnInit, OnDestroy {
     this.mostrarModal = false;
   }
 
-  agregarProductoOrden(event: { producto: any; cantidad: number }) {
-    const { producto, cantidad } = event;
-
-    const productoExistente = this.productosSeleccionados.find(
-      (p) => p.id_producto === producto.id_producto,
-    );
-
-    if (productoExistente) {
-      productoExistente.cantidad = (productoExistente.cantidad || 0) + cantidad;
-    } else {
-      this.productosSeleccionados.push({ ...producto, cantidad: cantidad });
-    }
-
-    localStorage.setItem(
-      'ordenPago',
-      JSON.stringify(this.productosSeleccionados),
-    );
-
-    this.cerrarModal();
+  actualizarStock() {
+    this.cargarProductos(); //recargar lista de productos después de agregar
   }
 
-  //********************************* */
-  guardarCarrito() {
-    localStorage.setItem(
-      'ordenPago',
-      JSON.stringify(this.productosSeleccionados),
-    );
-  }
-
-  irAOrdenPago() {
-    this.guardarCarrito();
-    this.router.navigate(['/orden']);
-  }
-  /*************************************** */
-  clearFilters(dt: any): void {
-    this.globalFilterValue = '';
-    this.filteredProductos = [...this.productos];
-    dt.reset();
+  clearFilters(dt: Table): void {
+    this.globalFilterValue = ''; 
+    this.filteredProductos = [...this.productos]; 
+    dt.reset(); 
   }
 }

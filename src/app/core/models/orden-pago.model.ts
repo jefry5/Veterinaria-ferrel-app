@@ -1,8 +1,8 @@
-import { ProductoOrden } from "./producto-orden.model";
+import { ProductoOrden } from './producto-orden.model';
 
-
-export interface OrdenDePago {
-  idOrden: number;
-  total: number;
-  productos: ProductoOrden[];
+export interface OrdenPago {
+    idOrden?: number;
+    estado: string;
+    productos: ProductoOrden[];
+    total: number;
 }
