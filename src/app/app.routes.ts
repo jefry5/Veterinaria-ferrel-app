@@ -6,6 +6,8 @@ import { MascotasModule } from '@modules/veterinario-role/mascotas/mascotas.modu
 import { HistoriasMedicasModule } from '@modules/veterinario-role/historias-medicas/historias-medicas.module';
 import { StockModule } from '@modules/farmaceutico-role/stock/stock.module';
 import { OrdenModule } from '@modules/farmaceutico-role/orden/orden.module';
+import { ClientesModule } from '@modules/recepcionista-role/clientes/clientes.module';
+import { PagosModule } from '@modules/recepcionista-role/pagos/pagos.module';
 
 export const routes: Routes = [
     {
@@ -43,8 +45,18 @@ export const routes: Routes = [
         canActivate: [authGuard],
     },
     {
-        path: '**',
+        path: 'clientes',
+        loadChildren: () => ClientesModule,
+        canActivate: [authGuard],
+    },
+    {
+        path: 'pagos',
+        loadChildren: () => PagosModule,
+        canActivate: [authGuard],
+    },
+    {
+        path: '',
         redirectTo: 'auth',
         pathMatch: 'full',
-    }
+    }
 ];

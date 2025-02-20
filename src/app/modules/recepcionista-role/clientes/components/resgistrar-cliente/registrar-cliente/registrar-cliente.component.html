@@ -1,0 +1,135 @@
+<p-dialog
+  [(visible)]="visible"
+  [modal]="true"
+  [style]="{ width: '600px', height: 'flex' }"
+  (onHide)="closeDialog()"
+  [draggable]="false"
+  [resizable]="false"
+>
+  <ng-template #header>
+    <div class="inline-flex items-center justify-center gap-2">
+      <span class="whitespace-nowrap font-bold">Registrar Cliente</span>
+    </div>
+  </ng-template>
+
+  <form
+    [formGroup]="clienteForm"
+    (ngSubmit)="registrarCliente()"
+    class="form-grid"
+  >
+    <div class="form-item">
+      <h1 class="cursor-default">Nombre</h1>
+      <input
+        class="input-style-1"
+        type="text"
+        placeholder="Nombre"
+        formControlName="nombre"
+      />
+      <p-message
+        *ngIf="
+          clienteForm.get('nombre')?.touched &&
+          clienteForm.get('nombre')?.invalid
+        "
+        severity="error" variant="simple" size="small"
+      >
+        El nombre es obligatorio.
+    </p-message>
+    </div>
+    <div class="form-item">
+      <h1 class="cursor-default">Apellido</h1>
+      <input
+        class="input-style-1"
+        type="text"
+        placeholder="Apellido"
+        formControlName="apellido"
+      />
+      <p-message
+        *ngIf="
+          clienteForm.get('apellido')?.touched &&
+          clienteForm.get('apellido')?.invalid
+        "
+        severity="error" variant="simple" size="small"
+      >
+        El apellido es obligatorio.
+      </p-message>
+    </div>
+    <div class="form-item">
+      <h1 class="cursor-default">DNI</h1>
+      <input
+        class="input-style-1"
+        type="number"
+        placeholder="DNI"
+        formControlName="dni"
+      />
+      <p-message
+        *ngIf="
+          clienteForm.get('dni')?.touched && clienteForm.get('dni')?.invalid
+        "
+        severity="error" variant="simple" size="small"
+      >
+        El DNI es obligatorio y debe tener 8 dígitos.
+      </p-message>
+    </div>
+    <div class="form-item">
+      <h1 class="cursor-default">Teléfono</h1>
+      <input
+        class="input-style-1"
+        type="number"
+        placeholder="Teléfono"
+        formControlName="telefono"
+      />
+      <p-message
+        *ngIf="
+          clienteForm.get('telefono')?.touched &&
+          clienteForm.get('telefono')?.invalid
+        "
+        severity="error" variant="simple" size="small"
+      >
+        El teléfono es obligatorio, debe contener sólo números y tener 9
+        dígitos.
+      </p-message>
+    </div>
+    <div class="form-item">
+      <h1 class="cursor-default">Direccion</h1>
+      <input
+        class="input-style-1"
+        type="text"
+        placeholder="Direccion"
+        formControlName="direccion"
+      />
+      <p-message
+        *ngIf="
+          clienteForm.get('direccion')?.touched &&
+          clienteForm.get('direccion')?.invalid
+        "
+        severity="error" variant="simple" size="small"
+      >
+        El domicilio es obligatorio.
+      </p-message>
+    </div>
+    <div class="form-item">
+      <h1 class="cursor-default">Correo</h1>
+      <input
+        class="input-style-1"
+        type="text"
+        placeholder="Correo"
+        formControlName="correo"
+      />
+      <p-message
+        *ngIf="
+          clienteForm.get('correo')?.touched &&
+          clienteForm.get('correo')?.invalid
+        "
+        severity="error" variant="simple" size="small"
+      >
+        Ingrese un correo válido.
+      </p-message>
+    </div>
+    <div class="form-item form-item-full">
+      <p-button
+        type="submit"
+        label="Registrar"
+      ></p-button>
+    </div>
+  </form>
+</p-dialog>

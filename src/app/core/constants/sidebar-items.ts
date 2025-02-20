@@ -51,14 +51,7 @@ export const SIDEBAR_ITEMS: { [role: string]: SidebarItem[] } = {
         tooltip: 'Pagos',
         icon: 'fa fa-credit-card-alt',
         route: '/pagos',
-      },
-      {
-        name: 'Ticket de Atención',
-        description: 'Sección para generar el ticket de atención',
-        tooltip: 'Tickets',
-        icon: 'fa fa-ticket',
-        route: '/ticket',
-      },
+      }
     ],
     farmaceutico: [
       ...COMMON_ITEMS,
