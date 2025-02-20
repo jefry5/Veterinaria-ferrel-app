@@ -1,10 +1,23 @@
-<div class="flex h-full w-full flex-col items-center justify-center bg-white">
+<div
+  class="flex h-full w-full flex-col items-center justify-start bg-white py-8"
+>
+  <div
+    class="mb-4 w-3/4 space-y-2 rounded-lg bg-gray-100 p-4 text-center shadow"
+  >
+    <h2 class="text-2xl font-semibold text-gray-700">MANTENER MASCOTAS</h2>
+    <p class="text-sm text-gray-500">
+      Sección encargada de gestionar el mantenimiento de las mascotas en el
+      sistema
+    </p>
+  </div>
   <p-table
     #dt
     class="w-3/4"
     [value]="mascotasData"
     [globalFilterFields]="['id', 'nombre', 'raza', 'edad', 'sexo']"
     dataKey="id"
+    [scrollable]="true"
+    scrollHeight="400px"
     [tableStyle]="{ 'min-width': '50rem' }"
     [rows]="5"
     [paginator]="true"
@@ -38,6 +51,7 @@
             pTooltip="Agregar Mascota"
             tooltipPosition="top"
             showDelay="1000"
+            (click)="agregarMascota()"
           />
         </div>
       </p-iconfield>
@@ -69,6 +83,7 @@
             pTooltip="Editar"
             tooltipPosition="top"
             showDelay="1000"
+            (click)="editarMascota(rowData.id)"
           />
           <p-button
             icon="fa fa-file-text"
@@ -86,7 +101,7 @@
             pTooltip="Eliminar"
             tooltipPosition="top"
             showDelay="1000"
-            (click)="deleteMascota(rowData.id)"
+            (click)="deleteMascota(rowData.id, $event)"
           />
         </td>
       </tr>
@@ -104,13 +119,18 @@
 
 <!-- Muestra el modal de detalles cuando se le invoca -->
 <app-details-mascota
+  *ngIf="showDetailsMascota"
   [(visible)]="showDetailsMascota"
-  [mascota]="selectedMascota" 
+  [mascota]="selectedMascota"
 />
 
-<app-delete-mascota
-  *ngIf="showDeleteModal && selectedMascotaId !== null"
-  [mascotaId]="selectedMascotaId!"
-  (onDeleteSuccess)="handleDeleteSuccess()"
-  (close)="showDeleteModal = false"
+<!-- Muestra el modal del formulario de mascota para añadir o editar -->
+<app-form-mascota-modal
+  *ngIf="showFormMascota"
+  [(visible)]="showFormMascota"
+  [isEditMode]="isEditForm"
+  [listMascota]="mascotasData"
+  [listMascotaInicial]="dataInicialMascota"
+  [table]="dt"
+  [mascota]="selectedMascota"
 />
