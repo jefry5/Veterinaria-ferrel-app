@@ -1,0 +1,57 @@
+<div class="p-6 bg-white rounded-lg shadow-md">
+    <h2 class="text-2xl font-bold text-center mb-6">Orden de Pago</h2>
+
+    <!-- info de la orden -->
+    <div class="mb-6 p-4 bg-gray-100 rounded-lg shadow-sm">
+        <p><strong>Número de Orden:</strong> {{ numeroOrden }}</p>
+        <p><strong>Fecha y Hora:</strong> {{ fechaOrden }}</p>
+    </div>
+
+    <!-- Tabla de productos -->
+    <p-table [value]="productosSeleccionados" dataKey="id_producto" [paginator]="true" [rows]="5">
+        <ng-template pTemplate="header">
+            <tr>
+                <th>Producto</th>
+                <th>Cantidad</th>
+                <th>Precio Unitario</th>
+                <th>Subtotal</th>
+            </tr>
+        </ng-template>
+
+        <ng-template pTemplate="body" let-producto>
+            <tr>
+                <td>{{ producto.productoNombre }}</td>
+                <td class="text-center">{{ producto.cantidad }}</td>
+                <td class="text-center">S/ {{ producto.precioUnitario?.toFixed(2) }}</td>
+                <td class="text-center">S/ {{ producto.subtotal?.toFixed(2) }}</td>
+            </tr>
+        </ng-template>
+
+        <ng-template pTemplate="emptymessage">
+            <tr>
+                <td colspan="4" class="py-4 text-center text-gray-500">
+                    No hay productos en la orden.
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+
+    <!-- Totales -->
+    <div class="mt-6 p-4 bg-gray-100 rounded-lg shadow-sm text-right">
+        <p><strong>Subtotal:</strong> S/ {{ subtotalGeneral.toFixed(2) }}</p>
+        <p><strong>IGV (18%):</strong> S/ {{ igv.toFixed(2) }}</p>
+        <p class="font-bold text-lg"><strong>Total:</strong> S/ {{ total.toFixed(2) }}</p>
+    </div>
+
+    <!-- mensajes y confirmaciones -->
+    <!-- <p-message></p-message> -->
+    <p-confirmDialog></p-confirmDialog>
+
+    <!-- botones de accion -->
+    <div class="flex justify-center gap-4 mt-6">
+        <p-button label="Cancelar Orden" severity="danger" class="px-6 py-2" (click)="cancelarOrden()"></p-button>
+        <p-button label="Generar Orden de Pago" severity="success" class="px-6 py-2"
+                  (click)="confirmarOrden()" [disabled]="productosSeleccionados.length === 0"></p-button>
+    </div>
+</div>
+<p-toast></p-toast>

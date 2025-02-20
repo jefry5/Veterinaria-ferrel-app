@@ -1,0 +1,65 @@
+<!-- fondo oscuro semi-transparente -->
+<div class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+  <div class="bg-white p-8 rounded-lg shadow-lg w-96 h-auto flex flex-col justify-center">
+
+    <!-- titulo -->
+    <h3 class="text-2xl font-bold text-center mb-6">Seleccionar Cantidad</h3>
+
+    <!-- datos del producto -->
+    <p class="text-center mb-2 text-lg"><strong>Producto:</strong> {{ producto?.nombre || 'Producto no disponible' }}</p>
+    <p class="text-center mb-6 text-lg"><strong>Stock Disponible:</strong> {{ producto?.stock || 0 }}</p>
+
+    <!-- seleccionar cantidad -->
+    <div class="flex items-center justify-center space-x-3">
+      <p-button 
+        icon="fa fa-minus"
+        severity="danger"
+        rounded
+        class="w-10 h-10 flex items-center justify-center"
+        (click)="disminuirCantidad()">
+      </p-button>
+
+      <p-inputNumber 
+        [(ngModel)]="cantidadSeleccionada" 
+        [min]="1" 
+        [max]="producto?.stock || 1"
+        [showButtons]="false"
+        [useGrouping]="false"
+        inputStyleClass="text-center text-sm px-1"
+        [inputStyle]="{ 'height': '36px', 'width': '48px', 'padding': '2px' }"
+        (input)="validarCantidad()">
+      </p-inputNumber>
+
+      <p-button 
+        icon="fa fa-plus"
+        severity="success"
+        rounded
+        class="w-10 h-10 flex items-center justify-center"
+        (click)="aumentarCantidad()">
+      </p-button>
+    </div>
+
+    <!-- botones de accion -->
+    <div class="flex justify-center w-full mt-6">
+      <div class="flex gap-4">
+        <p-button 
+          label="Cancelar" 
+          severity="danger" 
+          class="w-28 py-2 flex items-center justify-center"
+          (click)="onClose.emit()">
+        </p-button>
+
+        <p-button 
+          label="Agregar" 
+          severity="success" 
+          class="w-28 py-2 flex items-center justify-center"
+          (click)="agregarProducto()">
+        </p-button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- supuestamente para que se muestren los mensajes pero meh -->
+<p-toast></p-toast> 

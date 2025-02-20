@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { DeleteMascotaComponent } from './delete-mascota.component';
+import { StockPageComponent } from './stock-page.component';
 
-describe('DeleteMascotaComponent', () => {
-  let component: DeleteMascotaComponent;
-  let fixture: ComponentFixture<DeleteMascotaComponent>;
+describe('StockPageComponent', () => {
+  let component: StockPageComponent;
+  let fixture: ComponentFixture<StockPageComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [DeleteMascotaComponent]
+      imports: [StockPageComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(DeleteMascotaComponent);
+    fixture = TestBed.createComponent(StockPageComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

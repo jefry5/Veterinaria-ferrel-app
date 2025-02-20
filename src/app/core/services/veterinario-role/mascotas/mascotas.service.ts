@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { FormularioMascota } from '@core/models/mascota.model';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -14,12 +15,22 @@ export class MascotasService {
 
   //Método encargado de obtener la lista de mascotas.
   getDataMascota(){
-    return this.http.get(`${this.BASE_URL}/mascota/details`);
+    return this.http.get(`${this.BASE_URL}/mascota/list`);
   }
 
   //Método encargado de obtener los detalles de una mascota mediante su id.
-  getDataDetailsMascota(id: string){
+  getDataDetailsMascota(id: number){
     return this.http.get(`${this.BASE_URL}/mascota/${id}`);
+  }
+
+  //Método encargado de registrar una mascota
+  postRegisterMascota(body: FormularioMascota){
+    return this.http.post(`${this.BASE_URL}/mascota/register`, body);
+  }
+
+  //Método encargado de editar una mascota
+  putEditMascota(id: number, body: FormularioMascota){
+    return this.http.put(`${this.BASE_URL}/mascota/edit/${id}`, body);
   }
 
   //Método encargado de eliminar una mascota mediante su id.

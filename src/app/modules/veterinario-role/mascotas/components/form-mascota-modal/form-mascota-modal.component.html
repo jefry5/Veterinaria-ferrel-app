@@ -1,0 +1,142 @@
+<p-dialog
+  [(visible)]="visible"
+  [modal]="true"
+  header="{{ isEditMode ? 'Editar Mascota' : 'Registrar Mascota' }}"
+  [style]="{ width: '30rem' }"
+  (onHide)="closeDialog()"
+  [draggable]="false"
+  [resizable]="false"
+>
+  <form [formGroup]="mascotaForm">
+    <div class="grid grid-cols-2 gap-4">
+      <div class="flex flex-col">
+        <label for="nombre" class="font-semibold">Nombre</label>
+        <input
+          pInputText
+          id="nombre"
+          class="rounded border px-2 py-1"
+          autocomplete="off"
+          formControlName="nombre"
+          [ngClass]="{
+            'ng-invalid ng-dirty':
+              mascotaForm.controls['nombre'].invalid &&
+              mascotaForm.controls['nombre'].touched,
+          }"
+        />
+      </div>
+
+      <div class="flex flex-col">
+        <label for="raza" class="font-semibold">Raza</label>
+        <p-select
+          [options]="raza"
+          formControlName="selectedRaza"
+          placeholder="Raza"
+          [editable]="true"
+          [optionLabel]="'nombre'"
+          class="w-full"
+          [appendTo]="'body'"
+          [ngClass]="{
+            'ng-invalid ng-dirty':
+              mascotaForm.controls['selectedRaza'].invalid &&
+              mascotaForm.controls['selectedRaza'].touched,
+          }"
+        />
+      </div>
+
+      <div class="flex flex-col">
+        <label for="edad" class="font-semibold">Edad</label>
+        <input
+          pInputText
+          id="edad"
+          class="rounded border px-2 py-1"
+          autocomplete="off"
+          formControlName="edad"
+          [ngClass]="{
+            'ng-invalid ng-dirty':
+              mascotaForm.controls['edad'].invalid &&
+              mascotaForm.controls['edad'].touched,
+          }"
+        />
+      </div>
+
+      <div class="flex flex-col">
+        <label for="sexo" class="font-semibold">Sexo</label>
+        <div class="flex h-full flex-wrap items-center justify-center gap-4">
+          <p-radiobutton
+            name="sexo"
+            value="Macho"
+            formControlName="sexo"
+            inputId="macho"
+          />
+          <label for="macho">Macho</label>
+
+          <p-radiobutton
+            name="sexo"
+            value="Hembra"
+            formControlName="sexo"
+            inputId="hembra"
+          />
+          <label for="hembra">Hembra</label>
+        </div>
+      </div>
+
+      <div class="flex flex-col">
+        <label for="peso" class="font-semibold">Peso</label>
+        <input
+          pInputText
+          id="peso"
+          class="rounded border px-2 py-1"
+          autocomplete="off"
+          formControlName="peso"
+          [ngClass]="{
+            'ng-invalid ng-dirty':
+              mascotaForm.controls['peso'].invalid &&
+              mascotaForm.controls['peso'].touched,
+          }"
+        />
+      </div>
+
+      <div class="flex flex-col">
+        <label for="talla" class="font-semibold">Talla</label>
+        <input
+          pInputText
+          id="talla"
+          class="rounded border px-2 py-1"
+          autocomplete="off"
+          formControlName="talla"
+          [ngClass]="{
+            'ng-invalid ng-dirty':
+              mascotaForm.controls['talla'].invalid &&
+              mascotaForm.controls['talla'].touched,
+          }"
+        />
+      </div>
+
+      <div class="col-span-2 flex flex-col">
+        <label for="cliente" class="font-semibold">Cliente</label>
+        <p-select
+          [options]="clientes"
+          formControlName="selectedCliente"
+          placeholder="Selecciona un cliente"
+          [editable]="true"
+          optionLabel="fullName"
+          class="w-full"
+          [appendTo]="'body'"
+          [ngClass]="{
+            'ng-invalid ng-dirty':
+              mascotaForm.controls['selectedCliente'].invalid &&
+              mascotaForm.controls['selectedCliente'].touched,
+          }"
+        />
+      </div>
+    </div>
+  </form>
+
+  <div class="mt-4 flex justify-end gap-2">
+    <p-button label="Cancelar" severity="secondary" (click)="visible = false" />
+    <p-button
+      label="Confirmar"
+      (click)="isEditMode ? editarMascota() : agregarMascota()"
+    />
+  </div>
+</p-dialog>

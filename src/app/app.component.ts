@@ -6,11 +6,12 @@ import { SideBarComponent } from '@shared/components/side-bar/side-bar.component
 import { LoadingPageComponent } from "./shared/components/loading-page/loading-page.component";
 import { ToastModule } from 'primeng/toast';
 import { RippleModule } from 'primeng/ripple';
+import { ConfirmDialog } from 'primeng/confirmdialog';
 import { filter } from 'rxjs';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, SideBarComponent, CommonModule, LoadingPageComponent, ToastModule, RippleModule],
+  imports: [RouterOutlet, SideBarComponent, CommonModule, LoadingPageComponent, ToastModule, RippleModule, ConfirmDialog],
   templateUrl: './app.component.html',
 })
 export class AppComponent implements OnInit {
