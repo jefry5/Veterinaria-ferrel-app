@@ -84,7 +84,7 @@ export class ModificarClienteComponent implements OnInit {
       ...this.cliente,
       nombre: formValue.nombre,
       apellido: formValue.apellido,
-      dni: Number(formValue.dni), // convertir a número
+      dni:formValue.dni, // convertir a número
       telefono: formValue.telefono.toString(), // asegurarse de que sea string
       direccion: formValue.direccion,
       email: formValue.email,

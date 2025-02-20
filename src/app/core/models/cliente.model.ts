@@ -5,4 +5,5 @@ export interface Cliente {
     dni?: string;
     email?: string;
     telefono?: string;
+    direccion?: string;
 }
