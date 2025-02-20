@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Message } from 'primeng/message';
 import {
   FormBuilder,
   FormGroup,
@@ -11,9 +12,10 @@ import { Dialog } from 'primeng/dialog';
 import { ClientesService } from '@core/services/recepcionista-role/clientes/clientes.service';
 import { CommonModule } from '@angular/common';
 import { MessagesService } from '@core/services/message/messages.service';
+import { InputTextModule } from 'primeng/inputtext';
 @Component({
   selector: 'app-registrar-cliente',
-  imports: [ButtonModule, Dialog, ReactiveFormsModule, CommonModule],
+  imports: [ButtonModule, Dialog, ReactiveFormsModule, CommonModule,InputTextModule,Message],
   templateUrl: './registrar-cliente.component.html',
   styleUrl: './registrar-cliente.component.css',
 })
@@ -41,6 +43,7 @@ export class RegistrarClienteComponent implements OnInit {
 
   closeDialog() {
     this.visibleChange.emit(false);
+    this.clienteForm.reset();
   }
 
   registrarCliente() {

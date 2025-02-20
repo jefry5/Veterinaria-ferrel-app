@@ -1,7 +1,7 @@
 <p-dialog
   [(visible)]="visible"
   [modal]="true"
-  [style]="{ width: '25rem' }"
+  [style]="{ width: '600px', height: 'flex' }"
   (onHide)="closeDialog()"
   [draggable]="false"
   [resizable]="false"
@@ -15,9 +15,9 @@
   <form
     [formGroup]="clienteForm"
     (ngSubmit)="registrarCliente()"
-    class="flex h-full w-full flex-col gap-5"
+    class="form-grid"
   >
-    <div class="flex w-full flex-col gap-1">
+    <div class="form-item">
       <h1 class="cursor-default">Nombre</h1>
       <input
         class="input-style-1"
@@ -25,17 +25,17 @@
         placeholder="Nombre"
         formControlName="nombre"
       />
-      <small
+      <p-message
         *ngIf="
           clienteForm.get('nombre')?.touched &&
           clienteForm.get('nombre')?.invalid
         "
-        class="p-error"
+        severity="error" variant="simple" size="small"
       >
         El nombre es obligatorio.
-      </small>
+    </p-message>
     </div>
-    <div class="flex w-full flex-col gap-1">
+    <div class="form-item">
       <h1 class="cursor-default">Apellido</h1>
       <input
         class="input-style-1"
@@ -43,34 +43,34 @@
         placeholder="Apellido"
         formControlName="apellido"
       />
-      <small
+      <p-message
         *ngIf="
           clienteForm.get('apellido')?.touched &&
           clienteForm.get('apellido')?.invalid
         "
-        class="p-error"
+        severity="error" variant="simple" size="small"
       >
         El apellido es obligatorio.
-      </small>
+      </p-message>
     </div>
-    <div class="flex w-full flex-col gap-1">
+    <div class="form-item">
       <h1 class="cursor-default">DNI</h1>
       <input
         class="input-style-1"
-        type="text"
+        type="number"
         placeholder="DNI"
         formControlName="dni"
       />
-      <small
+      <p-message
         *ngIf="
           clienteForm.get('dni')?.touched && clienteForm.get('dni')?.invalid
         "
-        class="p-error"
+        severity="error" variant="simple" size="small"
       >
         El DNI es obligatorio y debe tener 8 dígitos.
-      </small>
+      </p-message>
     </div>
-    <div class="flex w-full flex-col gap-1">
+    <div class="form-item">
       <h1 class="cursor-default">Teléfono</h1>
       <input
         class="input-style-1"
@@ -78,18 +78,18 @@
         placeholder="Teléfono"
         formControlName="telefono"
       />
-      <small
+      <p-message
         *ngIf="
           clienteForm.get('telefono')?.touched &&
           clienteForm.get('telefono')?.invalid
         "
-        class="p-error"
+        severity="error" variant="simple" size="small"
       >
         El teléfono es obligatorio, debe contener sólo números y tener 9
         dígitos.
-      </small>
+      </p-message>
     </div>
-    <div class="flex w-full flex-col gap-1">
+    <div class="form-item">
       <h1 class="cursor-default">Direccion</h1>
       <input
         class="input-style-1"
@@ -97,17 +97,17 @@
         placeholder="Direccion"
         formControlName="direccion"
       />
-      <small
+      <p-message
         *ngIf="
           clienteForm.get('direccion')?.touched &&
           clienteForm.get('direccion')?.invalid
         "
-        class="p-error"
+        severity="error" variant="simple" size="small"
       >
         El domicilio es obligatorio.
-      </small>
+      </p-message>
     </div>
-    <div class="flex w-full flex-col gap-1">
+    <div class="form-item">
       <h1 class="cursor-default">Correo</h1>
       <input
         class="input-style-1"
@@ -115,20 +115,21 @@
         placeholder="Correo"
         formControlName="correo"
       />
-      <small
+      <p-message
         *ngIf="
           clienteForm.get('correo')?.touched &&
           clienteForm.get('correo')?.invalid
         "
-        class="p-error"
+        severity="error" variant="simple" size="small"
       >
         Ingrese un correo válido.
-      </small>
+      </p-message>
     </div>
-    <p-button
-      type="submit"
-      label="Registrar"
-      class="button-style-2 w-full"
-    ></p-button>
+    <div class="form-item form-item-full">
+      <p-button
+        type="submit"
+        label="Registrar"
+      ></p-button>
+    </div>
   </form>
 </p-dialog>
