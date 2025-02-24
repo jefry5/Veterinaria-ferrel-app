@@ -14,7 +14,8 @@ import { RegistrarClienteComponent } from '../components/resgistrar-cliente/regi
 import { Tooltip } from 'primeng/tooltip';
 import { ToastModule } from 'primeng/toast';
 import { ConfirmDialog } from 'primeng/confirmdialog';
-import { ModificarClienteComponent } from "../components/modificar-cliente/modificar-cliente/modificar-cliente.component";
+import { ModificarClienteComponent } from '../components/modificar-cliente/modificar-cliente/modificar-cliente.component';
+import { VisualizarClienteComponent } from '../components/visualizar-cliente/visualizar-cliente/visualizar-cliente.component';
 
 @Component({
   selector: 'app-clientes-pages',
@@ -38,8 +39,9 @@ import { ModificarClienteComponent } from "../components/modificar-cliente/modif
     CommonModule,
     ToastModule,
     ConfirmDialog,
-    ModificarClienteComponent
-],
+    ModificarClienteComponent,
+    VisualizarClienteComponent,
+  ],
   templateUrl: './clientes-pages.component.html',
   styleUrl: './clientes-pages.component.css',
   providers: [ConfirmationService, MessageService],
@@ -48,13 +50,15 @@ export class ClientesPagesComponent implements OnInit {
   clientes: Cliente[] = [];
   showRegistrarDialog: boolean = false;
   showModificarDialog: boolean = false;
+  showVerDialog: boolean = false;
+
   clienteSeleccionado!: Cliente;
   globalFilterValue: string = '';
 
   constructor(
     private clientesService: ClientesService,
     private confirmationService: ConfirmationService,
-    private messageService: MessageService
+    private messageService: MessageService,
   ) {}
 
   ngOnInit(): void {
@@ -64,7 +68,7 @@ export class ClientesPagesComponent implements OnInit {
   cargarClientes(): void {
     this.clientesService.getClientes().subscribe({
       next: (data: any) => {
-        this.clientes = data.content;
+        this.clientes = data;
       },
       error: (err) => {
         console.error('Error al cargar clientes', err);
@@ -94,26 +98,42 @@ export class ClientesPagesComponent implements OnInit {
         if (cliente.id) {
           this.deleteCliente(cliente.id);
         } else {
-          this.messageService.add({ severity: 'error', summary: 'Error', detail: 'ID del cliente no encontrado' });
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Error',
+            detail: 'ID del cliente no encontrado',
+          });
         }
-      }
+      },
     });
   }
 
   deleteCliente(id: number) {
     this.clientesService.deleteCliente(id).subscribe({
       next: () => {
-        this.messageService.add({ severity: 'success', summary: 'Cliente eliminado', detail: 'El cliente fue eliminado exitosamente' });
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Cliente eliminado',
+          detail: 'El cliente fue eliminado exitosamente',
+        });
         this.cargarClientes(); // Recargar la lista de clientes
       },
       error: () => {
-        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'No se pudo eliminar el cliente' });
-      }
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: 'No se pudo eliminar el cliente',
+        });
+      },
     });
   }
 
   openModificarDialog(cliente: Cliente) {
     this.clienteSeleccionado = cliente;
     this.showModificarDialog = true;
+  }
+  openVerDialog(cliente: Cliente) {
+    this.clienteSeleccionado = cliente;
+    this.showVerDialog = true;
   }
 }

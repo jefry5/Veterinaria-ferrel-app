@@ -2,6 +2,7 @@ import { JsonPipe } from '@angular/common';
 import { HttpClient, JsonpClientBackend } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Cliente } from '@core/models/cliente.model';
+import { Mascota } from '@core/models/mascota.model';
 import { TokenService } from '@core/services/JWT/token.service';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
@@ -40,5 +41,10 @@ export class ClientesService {
   //metodo para modificar cliente
   updateCliente(cliente: Cliente, id: number) {
     return this.http.put(`${this.BASE_URL}/cliente/edit/${id}`, cliente);
+  }
+
+  //metodo para tener las mascotas de un cliente
+  getMascotasCliente(dni: number) {
+    return this.http.get<Mascota[]>(`${this.BASE_URL}/mascotas/search/${dni}`);
   }
 }

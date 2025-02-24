@@ -6,6 +6,8 @@ import { ButtonModule } from 'primeng/button';
 import { ButtonGroupModule } from 'primeng/buttongroup';
 import { TableModule } from 'primeng/table';
 import { FormsModule } from '@angular/forms';
+import { DividerModule } from 'primeng/divider';
+
 
 @Component({
   selector: 'app-pagos-pages',
@@ -16,11 +18,17 @@ import { FormsModule } from '@angular/forms';
     ButtonModule,
     ButtonGroupModule,
     TableModule,
-    FormsModule
+    FormsModule,
+    DividerModule
+
   ],
   templateUrl: './pagos-pages.component.html',
   styleUrl: './pagos-pages.component.css',
 })
 export class PagosPagesComponent {
-monto: any;
+  dni: number | undefined
+  id: number | undefined
+  monto: number | undefined
+
+  products: any[] = [];
 }
