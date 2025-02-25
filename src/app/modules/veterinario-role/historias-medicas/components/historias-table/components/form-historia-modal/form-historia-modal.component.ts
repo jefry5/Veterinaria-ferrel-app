@@ -101,13 +101,15 @@ export class FormHistoriaModalComponent implements OnInit {
       const transformarFechaToIso = this.convertirFecha(this.historiaForm.get('fecha')?.value ?? '').toISOString();
 
       const agregarHistoria: HistoriaClinica = {
-        tipoconsulta: this.historiaForm.get('tipoConsulta')?.value,
+        tipoconsulta: this.historiaForm.controls['tipoConsulta'].value.nombre,
         motivo: this.historiaForm.get('motivo')?.value,
         temperatura: this.historiaForm.get('temperatura')?.value,
         resumen: this.historiaForm.get('resumen')?.value,
         receta: this.historiaForm.get('receta')?.value,
         fecha: transformarFechaToIso,
       }
+
+      console.log(agregarHistoria);
 
       this.historiaService.registerDataHistoriaMedica(this.mascotaId!, agregarHistoria).subscribe({
         next: (resp: any) => {
