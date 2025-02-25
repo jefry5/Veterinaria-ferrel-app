@@ -46,7 +46,7 @@
       </h2>
       <div *ngIf="mascotas.length > 0; else noMascotas" class="grid grid-cols-2 gap-4">
         <div *ngFor="let mascota of mascotas" class="border-b border-gray-200 py-2">
-          <p-card class="flex flex-col gap-2">
+          <p-card>
             <div class="p-card-title">{{ mascota.nombre }}</div>
             <div class="p-card-content">
               <div>
@@ -56,10 +56,6 @@
               <div>
                 <h3 class="text-base font-semibold text-gray-800">Edad</h3>
                 <p class="text-base text-gray-600">{{ mascota.edad }}</p>
-              </div>
-              <div>
-                <h3 class="text-base font-semibold text-gray-800">Peso</h3>
-                <p class="text-base text-gray-600">{{ mascota.peso }}</p>
               </div>
               <div>
                 <h3 class="text-base font-semibold text-gray-800">Sexo</h3>
