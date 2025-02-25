@@ -1,0 +1,52 @@
+<p-dialog
+  header="LISTA DE MASCOTAS"
+  [resizable]="false"
+  [modal]="true"
+  [maximizable]="true"
+  appendTo="body"
+  [(visible)]="visible"
+  (onHide)="closeDialog()"
+  [style]="{ width: '75vw' }"
+  [contentStyle]="{ height: '300px' }"
+  [draggable]="false"
+  [resizable]="false"
+>
+  <p-table
+    [value]="mascotasData"
+    [scrollable]="true"
+    scrollHeight="flex"
+    selectionMode="single"
+    [(selection)]="selectedMascota"
+    dataKey="id"
+    [tableStyle]="{ 'min-width': '50rem' }"
+  >
+    <ng-template #header>
+      <tr>
+        <th>Identificacion</th>
+        <th>Nombre</th>
+        <th>Raza</th>
+        <th>Edad</th>
+      </tr>
+    </ng-template>
+    <ng-template #body let-row>
+      <tr [pSelectableRow]="row">
+        <td>{{ row.id }}</td>
+        <td>{{ row.nombre }}</td>
+        <td>{{ row.raza }}</td>
+        <td>{{ row.edad }}</td>
+      </tr>
+    </ng-template>
+
+    <ng-template pTemplate="emptymessage">
+      <tr>
+        <td colspan="6" class="py-4 text-center text-sm text-gray-400">
+          No se encontraron datos.
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+
+  <ng-template #footer>
+    <p-button label="Confirmar" icon="fa fa-check" (onClick)="confirmarAction()" />
+  </ng-template>
+</p-dialog>

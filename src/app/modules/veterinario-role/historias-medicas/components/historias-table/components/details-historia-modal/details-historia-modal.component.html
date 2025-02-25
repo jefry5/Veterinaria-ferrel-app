@@ -1,0 +1,58 @@
+<p-dialog
+  [(visible)]="visible"
+  [modal]="true"
+  [style]="{ width: '25rem' }"
+  (onHide)="closeDialog()"
+  [maximizable]="true"
+  [draggable]="false"
+  [resizable]="false"   
+>
+  <ng-template #header>
+    <div class="inline-flex items-center justify-center gap-2">
+      <p-avatar
+        image="https://w7.pngwing.com/pngs/109/426/png-transparent-miss-kobayashi-s-dragon-maid-anime-cosplay-others-miss-kobayashi-s-dragon-maid-anime-cosplay.png"
+        shape="circle"
+      />
+      <span class="whitespace-nowrap font-bold">{{ mascota?.nombre }}</span>
+    </div>
+  </ng-template>
+
+  <div class="p-5 text-gray-700">
+    <div class="grid grid-cols-2 gap-x-6 gap-y-2">
+      <div>
+        <span class="font-semibold text-gray-900">Tipo de consulta:</span>
+        <p class="text-sm">{{ historia?.tipoconsulta }}</p>
+      </div>
+      <div>
+        <span class="font-semibold text-gray-900">Motivo:</span>
+        <p class="text-sm">{{ historia?.motivo }}</p>
+      </div>
+      <div>
+        <span class="font-semibold text-gray-900">Temperatura:</span>
+        <p class="text-sm">{{ historia?.temperatura }} °C</p>
+      </div>
+      <div>
+        <span class="font-semibold text-gray-900">Fecha:</span>
+        <p class="text-sm">{{ historia?.fecha | date: "dd/MM/yyyy" }}</p>
+      </div>
+
+      <div class="col-span-2 mt-2">
+        <span class="block font-semibold text-gray-900">Receta:</span>
+        <p
+          class="rounded-md bg-gray-100 p-3 text-sm leading-relaxed shadow-inner"
+        >
+          {{ historia?.receta }}
+        </p>
+      </div>
+
+      <div class="col-span-2 mt-3">
+        <span class="block font-semibold text-gray-900">Resumen:</span>
+        <p
+          class="rounded-md bg-gray-100 p-3 text-sm leading-relaxed shadow-inner"
+        >
+          {{ historia?.resumen }}
+        </p>
+      </div>
+    </div>
+  </div>
+</p-dialog>

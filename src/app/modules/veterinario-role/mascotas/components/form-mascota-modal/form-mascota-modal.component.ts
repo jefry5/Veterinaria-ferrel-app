@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Dialog } from 'primeng/dialog';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
@@ -10,12 +10,11 @@ import { Select } from 'primeng/select';
 import { Cliente } from '@core/models/cliente.model';
 import { RadioButton } from 'primeng/radiobutton';
 import { Razas } from '@core/constants/razas';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { environment } from 'src/environments/environment';
 import { MessagesService } from '@core/services/message/messages.service';
 import { MascotasService } from '@core/services/veterinario-role/mascotas/mascotas.service';
 import { Mascota, FormularioMascota } from '@core/models/mascota.model';
 import { Table } from 'primeng/table';
+import { ClientesService } from '@core/services/recepcionista-role/clientes/clientes.service';
 
 @Component({
   selector: 'app-form-mascota-modal',
@@ -42,13 +41,16 @@ export class FormMascotaModalComponent implements OnInit {
   @Input() table: Table | undefined;
   @Output() visibleChange = new EventEmitter<boolean>();
 
-
   clientes: Cliente[] = [];
   raza: { nombre: string }[] = [];
 
   mascotaForm: FormGroup;
 
-  constructor(private http: HttpClient, private messagesService: MessagesService, private mascotaService: MascotasService) {
+  constructor(
+    private messagesService: MessagesService, 
+    private mascotaService: MascotasService, 
+    private clienteService: ClientesService
+  ) {
     this.mascotaForm = new FormGroup({
       nombre: new FormControl('', [Validators.required, Validators.pattern(/^[A-Za-zÁÉÍÓÚáéíóúÑñ ]{2,30}$/)]),
       selectedRaza: new FormControl(null, [Validators.required]),
@@ -61,10 +63,10 @@ export class FormMascotaModalComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.http.get(`${environment.url}/cliente/details`)
+    this.clienteService.getClientes()
       .subscribe({
         next: (resp: any) => {
-          this.clientes = resp.content.map((cliente: { dni: string; nombre: string; apellido: string }) => ({
+          this.clientes = resp.map((cliente: { dni: string; nombre: string; apellido: string }) => ({
             ...cliente,
             fullName: `${cliente.nombre} ${cliente.apellido} →  ${cliente.dni}`
           }));
@@ -72,7 +74,12 @@ export class FormMascotaModalComponent implements OnInit {
             this.cargarDatosEnFormulario();
           }
         },
-        error: (e: HttpErrorResponse) => console.log(e)
+        error: () => {
+          this.messagesService.errorMessage(
+            'Error al cargar datos de clientes',
+            'No se pudo cargar los datos de los clientes, por favor intentar de nuevo'
+          );
+        }
       });
 
     this.raza = Razas.perros.map(raza => ({ nombre: raza }));

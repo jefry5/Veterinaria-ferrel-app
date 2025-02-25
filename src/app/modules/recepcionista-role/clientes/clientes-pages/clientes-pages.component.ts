@@ -64,7 +64,7 @@ export class ClientesPagesComponent implements OnInit {
   cargarClientes(): void {
     this.clientesService.getClientes().subscribe({
       next: (data: any) => {
-        this.clientes = data.content;
+        this.clientes = data;
       },
       error: (err) => {
         console.error('Error al cargar clientes', err);

@@ -13,6 +13,6 @@ export const authGuard: CanActivateFn = (route, state) => {
   }
 
   //Devuelve a la página de login si no tiene un token valido
-  router.navigate(['/login']);
+  router.navigate(['/auth']);
   return false;
 };
