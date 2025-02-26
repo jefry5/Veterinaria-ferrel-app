@@ -1,4 +1,106 @@
-<div class="flex h-full w-full flex-col items-center justify-center bg-white">
-  <h1 class="text-xl font-bold">Página en desarrollo...🚀</h1>
-  <small class="text-gray-300">Proximamente</small>
+<div
+  class="flex h-full w-full flex-col items-center justify-start bg-white py-8"
+>
+  <div
+    class="mb-4 w-3/4 space-y-2 rounded-lg bg-gray-100 p-4 text-center shadow"
+  >
+    <h2 class="text-2xl font-semibold text-gray-700">
+      MANTENER HISTORIAS MÉDICAS
+    </h2>
+    <p class="text-sm text-gray-500">
+      Sección encargada de gestionar el mantenimiento de las historias médicas
+      en el sistema
+    </p>
+  </div>
+  <div class="flex flex-row items-center justify-center space-x-4 py-2">
+    <form
+      class="flex items-center justify-center space-x-4"
+      [formGroup]="historiasForm"
+    >
+      <label for="cliente" class="whitespace-nowrap font-light"
+        >Seleccione al cliente:</label
+      >
+      <p-select
+        [options]="clientes"
+        formControlName="selectedCliente"
+        placeholder="Cliente"
+        [editable]="true"
+        [showClear]="true"
+        optionLabel="fullName"
+        class="w-full"
+        [appendTo]="'body'"
+        [ngClass]="{
+          'ng-invalid ng-dirty':
+            historiasForm.controls['selectedCliente'].invalid &&
+            historiasForm.controls['selectedCliente'].touched,
+        }"
+      />
+      <button
+        type="submit"
+        pButton
+        class="w-[35%]"
+        icon="fa fa-table"
+        severity="contrast"
+        label="mascota"
+        [pTooltip]="
+          !historiasForm.controls['selectedCliente'].value
+            ? 'Seleccione un cliente'
+            : 'Mascotas del cliente'
+        "
+        tooltipPosition="right"
+        showDelay="500"
+        [disabled]="!historiasForm.controls['selectedCliente'].value"
+        (click)="getTableMascotas()"
+      ></button>
+    </form>
+  </div>
+  <div
+    class="flex h-full w-full flex-col items-center justify-start space-y-5 py-5"
+    *ngIf="
+      this.selectedMascota != null &&
+      historiasForm.controls['selectedCliente'].value
+    "
+  >
+    <div class="flex w-full items-center justify-center space-x-8">
+      <p-image
+        class="overflow-hidden rounded-2xl"
+        src="https://www.internationalstudentinsurance.com/espanol/blog/wp-content/uploads/2023/02/blog-1.jpg"
+        alt="Image"
+        width="250"
+        [preview]="true"
+        loading="lazy"
+      />
+      <div class="flex flex-col items-center justify-center gap-2">
+        <div class="flex flex-col gap-2">
+          <label for="nombre">Nombre</label>
+          <input
+            pInputText
+            id="nombre"
+            [placeholder]="selectedMascota.nombre"
+            [disabled]="true"
+          />
+        </div>
+
+        <div class="flex flex-col gap-2">
+          <label for="raza">Raza</label>
+          <input
+            pInputText
+            id="raza"
+            [placeholder]="selectedMascota.raza"
+            [disabled]="true"
+          />
+        </div>
+      </div>
+    </div>
+    <app-historias-table
+      [mascotaSelected]="selectedMascota"
+    />
+  </div>
 </div>
+
+<app-mascotas-table
+  *ngIf="showTableHistoria"
+  [(visible)]="showTableHistoria"
+  (selectedMacotaChange)="getSelectedMascota($event)"
+  [clienteSelected]="historiasForm.controls['selectedCliente'].value"
+/>

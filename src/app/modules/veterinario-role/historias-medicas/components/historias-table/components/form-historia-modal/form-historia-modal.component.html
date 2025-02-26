@@ -1,0 +1,111 @@
+<p-dialog
+  [(visible)]="visible"
+  [modal]="true"
+  header="{{ isEditMode ? 'Editar Historia' : 'Registrar Historia' }}"
+  [style]="{ width: '30rem' }"
+  (onHide)="closeDialog()"
+  [maximizable]="true"
+  [draggable]="false"
+  [resizable]="false"
+>
+  <form [formGroup]="historiaForm">
+    <div class="grid grid-cols-2 gap-4">
+      <div class="flex flex-col">
+        <label for="fecha" class="font-semibold">Fecha</label>
+        <input
+          pInputText
+          id="fecha"
+          class="rounded border px-2 py-1"
+          autocomplete="off"
+          formControlName="fecha"
+          [ngClass]="{
+            'ng-invalid ng-dirty':
+              historiaForm.controls['fecha'].invalid &&
+              historiaForm.controls['fecha'].touched,
+          }"
+        />
+      </div>
+
+      <div class="flex flex-col">
+        <label for="tipoConsulta" class="font-semibold">Tipo Consulta</label>
+        <p-select
+          [options]="pselectTipoConsultas"
+          formControlName="tipoConsulta"
+          placeholder="Consultas"
+          [editable]="true"
+          [optionLabel]="'nombre'"
+          class="w-full"
+          [appendTo]="'body'"
+          [ngClass]="{
+            'ng-invalid ng-dirty':
+              historiaForm.controls['tipoConsulta'].invalid &&
+              historiaForm.controls['tipoConsulta'].touched,
+          }"
+        />
+      </div>
+
+      <div class="flex flex-col">
+        <label for="motivo" class="font-semibold">Motivo</label>
+        <input
+          pInputText 
+          id="motivo"
+          class="rounded border px-2 py-1"
+          autocomplete="off"
+          formControlName="motivo"
+          [ngClass]="{
+            'ng-invalid ng-dirty':
+              historiaForm.controls['motivo'].invalid &&
+              historiaForm.controls['motivo'].touched,
+          }"
+        />
+      </div>
+
+      <div class="flex flex-col">
+        <label for="temperatura" class="font-semibold">Temperatura</label>
+        <input
+          pInputText
+          id="temperatura"
+          class="rounded border px-2 py-1"
+          autocomplete="off"
+          formControlName="temperatura"
+          [ngClass]="{
+            'ng-invalid ng-dirty':
+              historiaForm.controls['temperatura'].invalid &&
+              historiaForm.controls['temperatura'].touched,
+          }"
+        />
+      </div>
+    </div>
+    <div class="flex w-full flex-col space-y-4 py-4">
+      <div class="flex flex-col">
+        <label for="Receta" class="font-semibold">Receta</label>
+        <textarea
+          rows="3"
+          cols="30"
+          pTextarea
+          formControlName="receta"
+          class="resize-none"
+        ></textarea>
+      </div>
+
+      <div class="flex flex-col">
+        <label for="resumen" class="font-semibold">Resumen</label>
+        <textarea
+          rows="3"
+          cols="30"
+          pTextarea
+          formControlName="resumen"
+          class="resize-none"
+        ></textarea>
+      </div>
+    </div>
+  </form>
+
+  <div class="mt-4 flex justify-end gap-2">
+    <p-button label="Cancelar" severity="secondary" (click)="visible = false" />
+    <p-button
+      label="Confirmar"
+      (click)="isEditMode ? editarHistoria() : agregarHistoria()"
+    />
+  </div>
+</p-dialog>

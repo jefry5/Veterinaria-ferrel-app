@@ -27,7 +27,7 @@ export class ErrorInterceptor implements HttpInterceptor {
             );
             break;
           //Maneja el error cuando es otro error diferente a la conexión a excepción del 404 (bad request).
-          case error.status !== 404 && error.status !== 403:
+          case error.status !== 404 && error.status !== 403 && error.status !== 200:
             ErrorInterceptor.isConnectionError = true;
             this.messagesService.errorMessage(
               'Error inesperado',

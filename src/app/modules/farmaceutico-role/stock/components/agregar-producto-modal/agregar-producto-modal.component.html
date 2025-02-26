@@ -9,6 +9,9 @@
     <p class="text-center mb-2 text-lg"><strong>Producto:</strong> {{ producto?.nombre || 'Producto no disponible' }}</p>
     <p class="text-center mb-6 text-lg"><strong>Stock Disponible:</strong> {{ producto?.stock || 0 }}</p>
 
+    <!-- mensaje validacion cantidad -->
+    <p-message *ngIf="cantidadSeleccionada < 1 || cantidadSeleccionada > (producto?.stock || 1)" severity="warn" text="Cantidad inválida, ingrese un valor entre 1 y {{ producto?.stock }}."></p-message>
+
     <!-- seleccionar cantidad -->
     <div class="flex items-center justify-center space-x-3">
       <p-button 
@@ -53,7 +56,8 @@
           label="Agregar" 
           severity="success" 
           class="w-28 py-2 flex items-center justify-center"
-          (click)="agregarProducto()">
+          (click)="agregarProducto()"
+          [disabled]="cantidadSeleccionada < 1 || cantidadSeleccionada > (producto?.stock || 1)">
         </p-button>
       </div>
     </div>
