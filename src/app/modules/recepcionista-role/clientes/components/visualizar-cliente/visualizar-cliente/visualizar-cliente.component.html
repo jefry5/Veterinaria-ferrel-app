@@ -1,5 +1,5 @@
 <p-dialog
-  header="Información del cliente: {{cliente.nombre}}"
+  header="Información del cliente: {{ cliente.nombre }} {{ cliente.apellido }}"
   [modal]="true"
   [(visible)]="visible"
   [style]="{ width: '50rem' }"
@@ -7,62 +7,68 @@
   [maximizable]="true"
   (onHide)="closeDialog()"
 >
-  <div class="grid grid-cols-2 gap-4">
-    <div>
-      <h1 class="cursor-default">Nombre</h1>
-      <p>{{ cliente.nombre }}</p>
-    </div>
-    <div>
-      <h1 class="cursor-default">Apellido</h1>
-      <p>{{ cliente.apellido }}</p>
-    </div>
-    <div>
-      <h1 class="cursor-default">DNI</h1>
-      <p>{{ cliente.dni }}</p>
-    </div>
-    <div>
-      <h1 class="cursor-default">Teléfono</h1>
-      <p>{{ cliente.telefono }}</p>
-    </div>
-    <div>
-      <h1 class="cursor-default">Correo</h1>
-      <p>{{ cliente.email }}</p>
-    </div>
-    <div>
-      <h1 class="cursor-default">Dirección</h1>
-      <p>{{ cliente.direccion }}</p>
-    </div>
-  </div>
-
-  <div class="mt-4">
-    <h2 class="cursor-default  ">Mascotas</h2>
-    <div *ngIf="mascotas.length > 0; else noMascotas">
-      <div *ngFor="let mascota of mascotas" class="grid grid-cols-2 gap-4">
+  <div class="p-4">
+    <div class="mb-6">
+      <h2 class="text-lg font-semibold mb-4 flex items-center">
+        <i class="fa fa-user mr-2" aria-hidden="true"></i> Datos del Cliente
+      </h2>
+      <div class="grid grid-cols-2 gap-4">
         <div>
-          <h1 class="cursor-default">Nombre de la mascota</h1>
-          <p>{{ mascota.nombre }}</p>
+          <h3 class="text-base font-semibold text-gray-800">Nombre</h3>
+          <p class="text-base text-gray-600">{{ cliente.nombre }}</p>
         </div>
         <div>
-          <h1 class="cursor-default">Raza</h1>
-          <p>{{ mascota.raza }}</p>
+          <h3 class="text-base font-semibold text-gray-800">Apellido</h3>
+          <p class="text-base text-gray-600">{{ cliente.apellido }}</p>
         </div>
         <div>
-          <h1 class="cursor-default">Edad</h1>
-          <p>{{ mascota.edad }}</p>
+          <h3 class="text-base font-semibold text-gray-800">DNI</h3>
+          <p class="text-base text-gray-600">{{ cliente.dni }}</p>
         </div>
         <div>
-          <h1 class="cursor-default">Peso</h1>
-          <p>{{ mascota.peso }}</p>
+          <h3 class="text-base font-semibold text-gray-800">Teléfono</h3>
+          <p class="text-base text-gray-600">{{ cliente.telefono }}</p>
         </div>
         <div>
-          <h1 class="cursor-default">Sexo</h1>
-          <p>{{ mascota.sexo }}</p>
+          <h3 class="text-base font-semibold text-gray-800">Correo</h3>
+          <p class="text-base text-gray-600">{{ cliente.email }}</p>
+        </div>
+        <div>
+          <h3 class="text-base font-semibold text-gray-800">Dirección</h3>
+          <p class="text-base text-gray-600">{{ cliente.direccion }}</p>
         </div>
       </div>
     </div>
-    <ng-template #noMascotas>
-      <p>No hay mascotas asociadas a este cliente.</p>
-    </ng-template>
+
+    <div>
+      <h2 class="text-lg font-semibold mb-4 flex items-center">
+        <i class="fa fa-paw mr-2" aria-hidden="true"></i> Mascotas
+      </h2>
+      <div *ngIf="mascotas.length > 0; else noMascotas" class="grid grid-cols-2 gap-4">
+        <div *ngFor="let mascota of mascotas" class="border-b border-gray-200 py-2">
+          <p-card>
+            <div class="p-card-title">{{ mascota.nombre }}</div>
+            <div class="p-card-content">
+              <div>
+                <h3 class="text-base font-semibold text-gray-800">Raza</h3>
+                <p class="text-base text-gray-600">{{ mascota.raza }}</p>
+              </div>
+              <div>
+                <h3 class="text-base font-semibold text-gray-800">Edad</h3>
+                <p class="text-base text-gray-600">{{ mascota.edad }}</p>
+              </div>
+              <div>
+                <h3 class="text-base font-semibold text-gray-800">Sexo</h3>
+                <p class="text-base text-gray-600">{{ mascota.sexo }}</p>
+              </div>
+            </div>
+          </p-card>
+        </div>
+      </div>
+      <ng-template #noMascotas>
+        <p class="text-gray-500">No hay mascotas asociadas a este cliente.</p>
+      </ng-template>
+    </div>
   </div>
 
   <div class="mt-4 flex justify-center">
