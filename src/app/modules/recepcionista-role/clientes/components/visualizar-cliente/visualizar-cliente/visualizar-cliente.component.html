@@ -1,5 +1,5 @@
 <p-dialog
-  header="Información del cliente: {{ cliente.nombre }} {{ cliente.apellido }}"
+  header="Información del cliente: "
   [modal]="true"
   [(visible)]="visible"
   [style]="{ width: '50rem' }"
@@ -12,7 +12,7 @@
       <h2 class="text-lg font-semibold mb-4 flex items-center">
         <i class="fa fa-user mr-2" aria-hidden="true"></i> Datos del Cliente
       </h2>
-      <div class="grid grid-cols-2 gap-4">
+      <div class="grid grid-cols-2 gap-4" *ngIf="cliente">
         <div>
           <h3 class="text-base font-semibold text-gray-800">Nombre</h3>
           <p class="text-base text-gray-600">{{ cliente.nombre }}</p>

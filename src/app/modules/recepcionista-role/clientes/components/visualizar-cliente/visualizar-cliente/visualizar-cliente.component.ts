@@ -25,7 +25,11 @@ export class VisualizarClienteComponent implements OnInit,OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['visible'] && this.visible) {
-      this.obtenerMascotasCliente();
+      if (this.cliente) {
+        this.obtenerMascotasCliente();
+      } else {
+        console.warn('Cliente no está definido');
+      }
     }
   }
 
