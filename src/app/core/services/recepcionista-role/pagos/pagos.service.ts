@@ -23,7 +23,7 @@ export class PagosService {
   }
 
   postConfirmar(idCliente: number){
-    return this.http.post(`${this.BASE_URL}/carrito/confirmar/${idCliente}`, {});
+    return this.http.post<any>(`${this.BASE_URL}/carrito/confirmar/${idCliente}`, {});
   }
 
   postSeleccionar(idOrden: number): Observable<string> {
@@ -42,6 +42,12 @@ export class PagosService {
     return this.http.delete(`${this.BASE_URL}/carrito/quitar-consulta/${pagoId}`);
   }
   cancelarOrdenPago(){
-    
+
+  }
+  validarDNI(dni: string){
+    return this.http.get<number>(`${this.BASE_URL}/api/pagos/validar-documento/${dni}`);
+  }
+  expirarOrdenPago(idOrden: number){
+    return this.http.post(`${this.BASE_URL}/api/ordenes/expirar/${idOrden}`,{},{responseType: 'text'});
   }
 }
