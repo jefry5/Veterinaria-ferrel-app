@@ -199,6 +199,7 @@ export class PagosPagesComponent implements OnInit {
               },
             });
             this.recargarCarrito();
+            this.id = undefined;
             this.visiblePagar = false;
           },
           error: (err) => {
