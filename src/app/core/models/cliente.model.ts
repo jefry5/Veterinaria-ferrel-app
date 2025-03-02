@@ -2,7 +2,7 @@ export interface Cliente {
     id?: number;
     nombre?: string;
     apellido?: string;
-    dni?: string;
+    dni?: number;
     email?: string;
     telefono?: string;
     direccion?: string;

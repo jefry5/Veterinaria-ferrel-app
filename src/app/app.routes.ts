@@ -10,53 +10,53 @@ import { ClientesModule } from '@modules/recepcionista-role/clientes/clientes.mo
 import { PagosModule } from '@modules/recepcionista-role/pagos/pagos.module';
 
 export const routes: Routes = [
-    {
-        path: '',
-        redirectTo: 'auth',
-        pathMatch: 'full',
-    },
-    {
-        path: 'auth',
-        loadChildren: () => AuthModule,
-    },
-    {
-        path: 'home',
-        loadChildren: () => HomeModule,
-        canActivate: [authGuard],
-    },
-    {
-        path: 'mascotas',
-        loadChildren: () => MascotasModule,
-        canActivate: [authGuard],
-    },
-    {
-        path: 'historias',
-        loadChildren: () => HistoriasMedicasModule,
-        canActivate: [authGuard],
-    },
-    {
-        path: 'stock',
-        loadChildren: () => StockModule,
-        canActivate: [authGuard],
-    },
-    {
-        path: 'orden',
-        loadChildren: () => OrdenModule,
-        canActivate: [authGuard],
-    },
-    {
-        path: 'clientes',
-        loadChildren: () => ClientesModule,
-        canActivate: [authGuard],
-    },
-    {
-        path: 'pagos',
-        loadChildren: () => PagosModule,
-        canActivate: [authGuard],
-    },
-    {
-        path: '',
-        redirectTo: 'auth',
-        pathMatch: 'full',
-    }
+  {
+    path: '',
+    redirectTo: 'auth',
+    pathMatch: 'full',
+  },
+  {
+    path: 'auth',
+    loadChildren: () => AuthModule,
+  },
+  {
+    path: 'home',
+    loadChildren: () => HomeModule,
+    canActivate: [authGuard],
+  },
+  {
+    path: 'mascotas',
+    loadChildren: () => MascotasModule,
+    canActivate: [authGuard],
+  },
+  {
+    path: 'historias',
+    loadChildren: () => HistoriasMedicasModule,
+    canActivate: [authGuard],
+  },
+  {
+    path: 'stock',
+    loadChildren: () => StockModule,
+    canActivate: [authGuard],
+  },
+  {
+    path: 'orden',
+    loadChildren: () => OrdenModule,
+    canActivate: [authGuard],
+  },
+  {
+    path: 'clientes',
+    loadChildren: () => ClientesModule,
+    canActivate: [authGuard],
+  },
+  {
+    path: 'pagos',
+    loadChildren: () => PagosModule,
+    canActivate: [authGuard],
+  },
+  {
+    path: '',
+    redirectTo: 'auth',
+    pathMatch: 'full',
+  },
 ];

@@ -38,7 +38,7 @@ export class HistoriasService {
   }
 
   //Método que obtiene las mascotas vinculadas al cliente mediante DNI
-  getDataMascotasByCliente(DNI: string) {
+  getDataMascotasByCliente(DNI: number) {
     return this.http.get(`${this.BASE_URL}/mascotas/search/${DNI}`);
   }
 }
