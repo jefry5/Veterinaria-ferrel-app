@@ -198,8 +198,9 @@ export class PagosPagesComponent implements OnInit {
                 console.error('Error al cargar órdenes de pago', err);
               },
             });
-            this.recargarCarrito();
             this.id = undefined;
+            this.recargarCarrito();
+            
             this.visiblePagar = false;
           },
           error: (err) => {
