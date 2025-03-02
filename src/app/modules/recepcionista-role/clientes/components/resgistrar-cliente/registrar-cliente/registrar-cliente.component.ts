@@ -13,9 +13,10 @@ import { ClientesService } from '@core/services/recepcionista-role/clientes/clie
 import { CommonModule } from '@angular/common';
 import { MessagesService } from '@core/services/message/messages.service';
 import { InputTextModule } from 'primeng/inputtext';
+import { EmailService } from '@core/services/email/email.service';
 @Component({
   selector: 'app-registrar-cliente',
-  imports: [ButtonModule, Dialog, ReactiveFormsModule, CommonModule,InputTextModule,Message],
+  imports: [ButtonModule, Dialog, ReactiveFormsModule, CommonModule, InputTextModule, Message],
   templateUrl: './registrar-cliente.component.html',
   styleUrl: './registrar-cliente.component.css',
 })
@@ -29,7 +30,8 @@ export class RegistrarClienteComponent implements OnInit {
     private fb: FormBuilder,
     private clientesService: ClientesService,
     private messagesService: MessagesService, // Usar para errores
-  ) {}
+    private emailService: EmailService,
+  ) { }
   ngOnInit(): void {
     this.clienteForm = this.fb.group({
       nombre: ['', Validators.required],
@@ -72,6 +74,22 @@ export class RegistrarClienteComponent implements OnInit {
           'El cliente se registró exitosamente',
         );
         this.clienteRegistrado.emit();
+        const emailData = {
+          user_email: nuevoCliente.email!,
+          to_name: nuevoCliente.nombre! + ' ' + nuevoCliente.apellido!,
+        }
+        this.emailService.sendEmail(emailData).then(response => {
+          this.messagesService.successMessage(
+            'Correo enviado',
+            'Se envío correo de bienvenida al cliente',
+          );
+        })
+        .catch(error => {
+          this.messagesService.errorMessage(
+            'Error de envío de correo',
+            'No se pudo envíar el correo de bienvenida, por favor intentar de nuevo',
+          );
+        })
         this.closeDialog();
       },
       error: (err) => {
