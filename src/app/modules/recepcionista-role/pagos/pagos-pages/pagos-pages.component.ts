@@ -39,8 +39,6 @@ export class PagosPagesComponent implements OnInit {
   products: any[] = [];
   ordenes: any[] = [];
   visiblePagar: boolean = false;
-  dni: string = '';
-  dniError: boolean = false;
 
   constructor(
     private pagosService: PagosService,
@@ -155,11 +153,8 @@ export class PagosPagesComponent implements OnInit {
   calculateMontoTotal(): void {
     this.monto = this.products.reduce((total, product) => total + product.subtotal, 0);
   }
-  validateDni(): void {
-    const dniPattern = /^[0-9]{8}$/;
-    this.dniError = !dniPattern.test(this.dni);
-  }
+
   confirmarPago(){
-    
+    77
   }
 }
