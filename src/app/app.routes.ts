@@ -12,11 +12,11 @@ import { PagosModule } from '@modules/recepcionista-role/pagos/pagos.module';
 export const routes: Routes = [
   {
     path: '',
-    redirectTo: 'login',
+    redirectTo: 'auth',
     pathMatch: 'full',
   },
   {
-    path: 'login',
+    path: 'auth',
     loadChildren: () => AuthModule,
   },
   {
@@ -56,7 +56,7 @@ export const routes: Routes = [
   },
   {
     path: '',
-    redirectTo: 'login',
+    redirectTo: 'auth',
     pathMatch: 'full',
   },
 ];

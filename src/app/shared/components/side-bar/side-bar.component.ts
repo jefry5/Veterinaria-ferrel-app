@@ -58,7 +58,7 @@ export class SideBarComponent {
       },
       accept: () => {
         this.authService.logout();
-        this.router.navigate(['/login']);
+        this.router.navigate(['/auth']);
       },
       reject: () => { },
     });
