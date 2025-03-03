@@ -1,26 +1,27 @@
 <p-dialog
   [(visible)]="visible"
   [modal]="true"
-  [style]="{ width: '600px', height: 'flex' }"
+  [style]="{width: '100%', maxWidth: '600px'}"
+  [breakpoints]="{'960px': '75vw', '640px': '90vw'}"
   (onHide)="closeDialog()"
   [draggable]="false"
   [resizable]="false"
 >
-  <ng-template #header>
-    <div class="inline-flex items-center justify-center gap-2">
-      <span class="whitespace-nowrap font-bold">Registrar Cliente</span>
+  <ng-template pTemplate="header">
+    <div class="flex items-center justify-center gap-2">
+      <span class="whitespace-nowrap font-bold text-lg">Registrar Cliente</span>
     </div>
   </ng-template>
 
   <form
     [formGroup]="clienteForm"
     (ngSubmit)="registrarCliente()"
-    class="grid grid-cols-2 gap-4"
+    class="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full"
   >
-    <div class="form-item">
-      <h1 class="cursor-default">Nombre</h1>
+    <div class="flex flex-col space-y-1">
+      <label class="text-sm font-medium cursor-default">Nombre</label>
       <input
-        class="input-style-1"
+        class="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring focus:border-blue-300"
         type="text"
         placeholder="Nombre"
         formControlName="nombre"
@@ -33,12 +34,13 @@
         severity="error" variant="simple" size="small"
       >
         El nombre es obligatorio.
-    </p-message>
+      </p-message>
     </div>
-    <div class="form-item">
-      <h1 class="cursor-default">Apellido</h1>
+    
+    <div class="flex flex-col space-y-1">
+      <label class="text-sm font-medium cursor-default">Apellido</label>
       <input
-        class="input-style-1"
+        class="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring focus:border-blue-300"
         type="text"
         placeholder="Apellido"
         formControlName="apellido"
@@ -53,10 +55,11 @@
         El apellido es obligatorio.
       </p-message>
     </div>
-    <div class="form-item">
-      <h1 class="cursor-default">DNI</h1>
+    
+    <div class="flex flex-col space-y-1">
+      <label class="text-sm font-medium cursor-default">DNI</label>
       <input
-        class="input-style-1"
+        class="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring focus:border-blue-300"
         type="number"
         placeholder="DNI"
         formControlName="dni"
@@ -70,10 +73,11 @@
         El DNI es obligatorio y debe tener 8 dígitos.
       </p-message>
     </div>
-    <div class="form-item">
-      <h1 class="cursor-default">Teléfono</h1>
+    
+    <div class="flex flex-col space-y-1">
+      <label class="text-sm font-medium cursor-default">Teléfono</label>
       <input
-        class="input-style-1"
+        class="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring focus:border-blue-300"
         type="number"
         placeholder="Teléfono"
         formControlName="telefono"
@@ -85,14 +89,14 @@
         "
         severity="error" variant="simple" size="small"
       >
-        El teléfono es obligatorio, debe contener sólo números y tener 9
-        dígitos.
+        El teléfono es obligatorio, debe contener sólo números y tener 9 dígitos.
       </p-message>
     </div>
-    <div class="form-item">
-      <h1 class="cursor-default">Direccion</h1>
+    
+    <div class="flex flex-col space-y-1">
+      <label class="text-sm font-medium cursor-default">Direccion</label>
       <input
-        class="input-style-1"
+        class="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring focus:border-blue-300"
         type="text"
         placeholder="Direccion"
         formControlName="direccion"
@@ -107,10 +111,11 @@
         El domicilio es obligatorio.
       </p-message>
     </div>
-    <div class="form-item">
-      <h1 class="cursor-default">Correo</h1>
+    
+    <div class="flex flex-col space-y-1">
+      <label class="text-sm font-medium cursor-default">Correo</label>
       <input
-        class="input-style-1"
+        class="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring focus:border-blue-300"
         type="text"
         placeholder="Correo"
         formControlName="correo"
@@ -125,10 +130,12 @@
         Ingrese un correo válido.
       </p-message>
     </div>
-    <div class="form-item form-item-full">
+    
+    <div class="col-span-1 sm:col-span-2 mt-4 flex justify-center sm:justify-end">
       <p-button
         type="submit"
         label="Registrar"
+        styleClass="w-full sm:w-auto"
       ></p-button>
     </div>
   </form>

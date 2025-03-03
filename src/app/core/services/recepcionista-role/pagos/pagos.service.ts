@@ -18,7 +18,7 @@ export class PagosService {
     this.BASE_URL = environment.url;
   }
 
-  getListaPagosPendientes(){
+  getListaPagosPendientes() {
     return this.http.get<OrdenPago>(`${this.BASE_URL}/api/ordenes/pendientes`);
   }
 

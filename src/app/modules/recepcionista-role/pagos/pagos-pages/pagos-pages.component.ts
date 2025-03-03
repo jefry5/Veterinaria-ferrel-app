@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { InputGroupModule } from 'primeng/inputgroup';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import { InputTextModule } from 'primeng/inputtext';
@@ -33,7 +33,7 @@ import { CommonModule } from '@angular/common';
   templateUrl: './pagos-pages.component.html',
   styleUrls: ['./pagos-pages.component.css'],
 })
-export class PagosPagesComponent implements OnInit {
+export class PagosPagesComponent implements OnInit, OnDestroy {
   consulta: number | undefined;
   id: number | undefined;
   pagoId: number[] = [];
@@ -71,6 +71,9 @@ export class PagosPagesComponent implements OnInit {
   }
 
   onSelectOrden(event: any): void {
+    // Limpiar consultas anteriores al cambiar de orden
+    this.limpiarConsultas();
+    
     if (this.seleccionPrevia && this.id !== undefined) {
       this.pagosService.deleteSeleccionar().subscribe({
         next: (data: string) => {
@@ -118,6 +121,7 @@ export class PagosPagesComponent implements OnInit {
             'La consulta ha sido añadida con éxito',
           );
           this.recargarCarrito();
+          this.consulta=undefined;
         },
         error: (err) => {
           console.error('Error al añadir consulta', err);
@@ -139,6 +143,8 @@ export class PagosPagesComponent implements OnInit {
                 'La consulta ha sido eliminada con éxito',
               );
               this.recargarCarrito();
+              this.consulta=undefined;
+
               
             }
             
@@ -253,6 +259,44 @@ export class PagosPagesComponent implements OnInit {
         },
       });
       
+    }
+  }
+  
+  // Nuevo método para limpiar consultas
+  limpiarConsultas(): void {
+    if (this.pagoId !== undefined && this.pagoId.length > 0) {
+      let eliminacionesCompletadas = 0;
+      this.pagoId.forEach((id) => {
+        this.pagosService.deleteConsulta(id).subscribe({
+          next: () => {
+            eliminacionesCompletadas++;
+            if (eliminacionesCompletadas === this.pagoId.length) {
+              this.pagoId = []; // Limpiar array después de eliminar
+            }
+          },
+          error: (err) => {
+            console.error('Error al eliminar consulta', err);
+          },
+        });
+      });
+    }
+  }
+  
+  // Implementar OnDestroy para limpiar al navegar a otra ruta
+  ngOnDestroy(): void {
+    // Limpiar consultas al salir del componente
+    this.limpiarConsultas();
+    
+    // También limpiar la selección
+    if (this.seleccionPrevia && this.id !== undefined) {
+      this.pagosService.deleteSeleccionar().subscribe({
+        next: (data: string) => {
+          console.log('Selección eliminada al salir:', data);
+        },
+        error: (err) => {
+          console.error('Error al eliminar selección', err);
+        }
+      });
     }
   }
 }
