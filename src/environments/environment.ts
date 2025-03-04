@@ -1,5 +1,5 @@
 export const environment = {
     production: false,
-    url: 'http://localhost:8080',
+    url: 'https://veterinaria-ferrel-backend-production.up.railway.app',
     enableDebug: true
   };
