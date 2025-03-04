@@ -2,76 +2,79 @@
   header="Información del cliente: "
   [modal]="true"
   [(visible)]="visible"
-  [style]="{ width: '50rem' }"
+  [style]="{width: '100%', maxWidth: '50rem'}"
+  [breakpoints]="{'960px': '90vw', '640px': '95vw'}"
   [autoZIndex]="true"
   [maximizable]="true"
   (onHide)="closeDialog()"
 >
-  <div class="p-4">
-    <div class="mb-6">
-      <h2 class="text-lg font-semibold mb-4 flex items-center">
+  <div class="p-2 sm:p-4">
+    <div class="mb-4 sm:mb-6">
+      <h2 class="text-lg font-semibold mb-3 sm:mb-4 flex items-center">
         <i class="fa fa-user mr-2" aria-hidden="true"></i> Datos del Cliente
       </h2>
-      <div class="grid grid-cols-2 gap-4" *ngIf="cliente">
-        <div>
-          <h3 class="text-base font-semibold text-gray-800">Nombre</h3>
-          <p class="text-base text-gray-600">{{ cliente.nombre }}</p>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4" *ngIf="cliente">
+        <div class="border-b pb-2 sm:border-0 sm:pb-0">
+          <h3 class="text-sm sm:text-base font-semibold text-gray-800">Nombre</h3>
+          <p class="text-sm sm:text-base text-gray-600">{{ cliente.nombre }}</p>
         </div>
-        <div>
-          <h3 class="text-base font-semibold text-gray-800">Apellido</h3>
-          <p class="text-base text-gray-600">{{ cliente.apellido }}</p>
+        <div class="border-b pb-2 sm:border-0 sm:pb-0">
+          <h3 class="text-sm sm:text-base font-semibold text-gray-800">Apellido</h3>
+          <p class="text-sm sm:text-base text-gray-600">{{ cliente.apellido }}</p>
         </div>
-        <div>
-          <h3 class="text-base font-semibold text-gray-800">DNI</h3>
-          <p class="text-base text-gray-600">{{ cliente.dni }}</p>
+        <div class="border-b pb-2 sm:border-0 sm:pb-0">
+          <h3 class="text-sm sm:text-base font-semibold text-gray-800">DNI</h3>
+          <p class="text-sm sm:text-base text-gray-600">{{ cliente.dni }}</p>
         </div>
-        <div>
-          <h3 class="text-base font-semibold text-gray-800">Teléfono</h3>
-          <p class="text-base text-gray-600">{{ cliente.telefono }}</p>
+        <div class="border-b pb-2 sm:border-0 sm:pb-0">
+          <h3 class="text-sm sm:text-base font-semibold text-gray-800">Teléfono</h3>
+          <p class="text-sm sm:text-base text-gray-600">{{ cliente.telefono }}</p>
         </div>
-        <div>
-          <h3 class="text-base font-semibold text-gray-800">Correo</h3>
-          <p class="text-base text-gray-600">{{ cliente.email }}</p>
+        <div class="border-b pb-2 sm:border-0 sm:pb-0">
+          <h3 class="text-sm sm:text-base font-semibold text-gray-800">Correo</h3>
+          <p class="text-sm sm:text-base text-gray-600">{{ cliente.email }}</p>
         </div>
-        <div>
-          <h3 class="text-base font-semibold text-gray-800">Dirección</h3>
-          <p class="text-base text-gray-600">{{ cliente.direccion }}</p>
+        <div class="border-b pb-2 sm:border-0 sm:pb-0">
+          <h3 class="text-sm sm:text-base font-semibold text-gray-800">Dirección</h3>
+          <p class="text-sm sm:text-base text-gray-600">{{ cliente.direccion }}</p>
         </div>
       </div>
     </div>
 
     <div>
-      <h2 class="text-lg font-semibold mb-4 flex items-center">
+      <h2 class="text-lg font-semibold mb-3 sm:mb-4 flex items-center">
         <i class="fa fa-paw mr-2" aria-hidden="true"></i> Mascotas
       </h2>
-      <div *ngIf="mascotas.length > 0; else noMascotas" class="grid grid-cols-2 gap-4">
-        <div *ngFor="let mascota of mascotas" class="border-b border-gray-200 py-2">
-          <p-card>
-            <div class="p-card-title">{{ mascota.nombre }}</div>
-            <div class="p-card-content">
-              <div>
-                <h3 class="text-base font-semibold text-gray-800">Raza</h3>
-                <p class="text-base text-gray-600">{{ mascota.raza }}</p>
+      <div *ngIf="mascotas.length > 0; else noMascotas" class="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
+        <div *ngFor="let mascota of mascotas" class="mb-2">
+          <p-card styleClass="h-full">
+            <ng-template pTemplate="header">
+              <div class="p-card-title text-base sm:text-lg font-semibold px-3 pt-3">{{ mascota.nombre }}</div>
+            </ng-template>
+            <div class="p-2 sm:p-3">
+              <div class="mb-2">
+                <h3 class="text-sm sm:text-base font-semibold text-gray-800">Raza</h3>
+                <p class="text-sm sm:text-base text-gray-600">{{ mascota.raza }}</p>
+              </div>
+              <div class="mb-2">
+                <h3 class="text-sm sm:text-base font-semibold text-gray-800">Edad</h3>
+                <p class="text-sm sm:text-base text-gray-600">{{ mascota.edad }}</p>
               </div>
               <div>
-                <h3 class="text-base font-semibold text-gray-800">Edad</h3>
-                <p class="text-base text-gray-600">{{ mascota.edad }}</p>
-              </div>
-              <div>
-                <h3 class="text-base font-semibold text-gray-800">Sexo</h3>
-                <p class="text-base text-gray-600">{{ mascota.sexo }}</p>
+                <h3 class="text-sm sm:text-base font-semibold text-gray-800">Sexo</h3>
+                <p class="text-sm sm:text-base text-gray-600">{{ mascota.sexo }}</p>
               </div>
             </div>
           </p-card>
         </div>
       </div>
       <ng-template #noMascotas>
-        <p class="text-gray-500">No hay mascotas asociadas a este cliente.</p>
+        <p class="text-gray-500 text-center">No hay mascotas asociadas a este cliente.</p>
       </ng-template>
     </div>
   </div>
 
   <div class="mt-4 flex justify-center">
-    <p-button label="Cerrar" (click)="closeDialog()"></p-button>
+    <p-button label="Cerrar" styleClass="w-full sm:w-auto" (click)="closeDialog()"></p-button>
   </div>
 </p-dialog>

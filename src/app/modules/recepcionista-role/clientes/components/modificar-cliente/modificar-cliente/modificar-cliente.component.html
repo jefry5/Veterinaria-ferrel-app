@@ -1,26 +1,27 @@
 <p-dialog
   [(visible)]="visible"
   [modal]="true"
-  [style]="{ width: '50rem' }"
+  [style]="{ width: '95vw', maxWidth: '50rem' }"
   (onHide)="closeDialog()"
   [draggable]="false"
   [resizable]="false"
+  styleClass="p-0 sm:p-2 md:p-4"
 >
   <ng-template #header>
-    <div class="inline-flex items-center justify-center gap-2">
-      <span class="whitespace-nowrap font-bold">Modificar Cliente</span>
+    <div class="flex items-center justify-center w-full">
+      <span class="text-base sm:text-lg md:text-xl font-bold">Modificar Cliente</span>
     </div>
   </ng-template>
 
   <form
     [formGroup]="clienteForm"
     (ngSubmit)="modificarCliente()"
-    class="grid grid-cols-2 gap-4"
+    class="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 p-3 sm:p-4 w-full"
   >
-    <div class="form-item">
-      <h1 class="cursor-default">Nombre</h1>
+    <div class="form-item w-full">
+      <h1 class="text-base sm:text-lg font-semibold mb-1">Nombre</h1>
       <input
-        class="input-style-1"
+        class="input-style-1 w-full p-2 sm:p-2.5 border border-gray-300 rounded text-sm sm:text-base"
         type="text"
         placeholder="Nombre"
         formControlName="nombre"
@@ -30,15 +31,16 @@
           clienteForm.get('nombre')?.touched &&
           clienteForm.get('nombre')?.invalid
         "
-        class="p-error"
+        class="text-red-500 text-xs sm:text-sm mt-1 block"
       >
         El nombre es obligatorio.
       </small>
     </div>
-    <div class="form-item">
-      <h1 class="cursor-default">Apellido</h1>
+    
+    <div class="form-item w-full">
+      <h1 class="text-base sm:text-lg font-semibold mb-1">Apellido</h1>
       <input
-        class="input-style-1"
+        class="input-style-1 w-full p-2 sm:p-2.5 border border-gray-300 rounded text-sm sm:text-base"
         type="text"
         placeholder="Apellido"
         formControlName="apellido"
@@ -48,15 +50,16 @@
           clienteForm.get('apellido')?.touched &&
           clienteForm.get('apellido')?.invalid
         "
-        class="p-error"
+        class="text-red-500 text-xs sm:text-sm mt-1 block"
       >
         El apellido es obligatorio.
       </small>
     </div>
-    <div class="form-item">
-      <h1 class="cursor-default">DNI</h1>
+    
+    <div class="form-item w-full">
+      <h1 class="text-base sm:text-lg font-semibold mb-1">DNI</h1>
       <input
-        class="input-style-1"
+        class="input-style-1 w-full p-2 sm:p-2.5 border border-gray-300 rounded text-sm sm:text-base"
         type="number"
         placeholder="DNI"
         formControlName="dni"
@@ -65,15 +68,16 @@
         *ngIf="
           clienteForm.get('dni')?.touched && clienteForm.get('dni')?.invalid
         "
-        class="p-error"
+        class="text-red-500 text-xs sm:text-sm mt-1 block"
       >
         El DNI es obligatorio y debe tener 8 dígitos.
       </small>
     </div>
-    <div class="form-item">
-      <h1 class="cursor-default">Teléfono</h1>
+    
+    <div class="form-item w-full">
+      <h1 class="text-base sm:text-lg font-semibold mb-1">Teléfono</h1>
       <input
-        class="input-style-1"
+        class="input-style-1 w-full p-2 sm:p-2.5 border border-gray-300 rounded text-sm sm:text-base"
         type="number"
         placeholder="Teléfono"
         formControlName="telefono"
@@ -83,18 +87,18 @@
           clienteForm.get('telefono')?.touched &&
           clienteForm.get('telefono')?.invalid
         "
-        class="p-error"
+        class="text-red-500 text-xs sm:text-sm mt-1 block"
       >
-        El teléfono es obligatorio, debe contener sólo números y tener 9
-        dígitos.
+        El teléfono es obligatorio, debe contener sólo números y tener 9 dígitos.
       </small>
     </div>
-    <div class="form-item">
-      <h1 class="cursor-default">Direccion</h1>
+    
+    <div class="form-item w-full">
+      <h1 class="text-base sm:text-lg font-semibold mb-1">Dirección</h1>
       <input
-        class="input-style-1"
+        class="input-style-1 w-full p-2 sm:p-2.5 border border-gray-300 rounded text-sm sm:text-base"
         type="text"
-        placeholder="Direccion"
+        placeholder="Dirección"
         formControlName="direccion"
       />
       <small
@@ -102,15 +106,16 @@
           clienteForm.get('direccion')?.touched &&
           clienteForm.get('direccion')?.invalid
         "
-        class="p-error"
+        class="text-red-500 text-xs sm:text-sm mt-1 block"
       >
         El domicilio es obligatorio.
       </small>
     </div>
-    <div class="form-item">
-      <h1 class="cursor-default">Correo</h1>
+    
+    <div class="form-item w-full">
+      <h1 class="text-base sm:text-lg font-semibold mb-1">Correo</h1>
       <input
-        class="input-style-1"
+        class="input-style-1 w-full p-2 sm:p-2.5 border border-gray-300 rounded text-sm sm:text-base"
         type="text"
         placeholder="Correo"
         formControlName="email"
@@ -120,15 +125,18 @@
           clienteForm.get('email')?.touched &&
           clienteForm.get('email')?.invalid
         "
-        class="p-error"
+        class="text-red-500 text-xs sm:text-sm mt-1 block"
       >
         Ingrese un correo válido.
       </small>
     </div>
-    <p-button
-      type="submit"
-      label="Modificar"
-      
-    ></p-button>
+    
+    <div class="col-span-1 sm:col-span-2 flex justify-center sm:justify-end mt-2 sm:mt-4">
+      <p-button
+        type="submit"
+        label="Modificar"
+        styleClass="w-full sm:w-auto text-white px-4 py-2 rounded"
+      ></p-button>
+    </div>
   </form>
 </p-dialog>
