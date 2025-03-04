@@ -8,6 +8,7 @@
     </div>
 
     <!-- Tabla de productos -->
+    <div class="overflow-x-auto">
     <p-table [value]="productosSeleccionados" dataKey="id_producto" [paginator]="true" [rows]="5">
         <ng-template pTemplate="header">
             <tr>
@@ -48,10 +49,13 @@
     <p-confirmDialog></p-confirmDialog>
 
     <!-- botones de accion -->
-    <div class="flex justify-center gap-4 mt-6">
-        <p-button label="Cancelar Orden" severity="danger" class="px-6 py-2" (click)="cancelarOrden()"></p-button>
-        <p-button label="Generar Orden de Pago" severity="success" class="px-6 py-2"
-                  (click)="confirmarOrden()" [disabled]="productosSeleccionados.length === 0"></p-button>
+    <div class="flex flex-col sm:flex-row justify-center gap-4 mt-6">
+        <p-button label="Cancelar Orden" severity="danger" 
+        class="w-full sm:w-auto px-6 py-2 flex items-center justify-center" 
+        (click)="cancelarOrden()"></p-button>
+        <p-button label="Generar Orden de Pago" severity="success" 
+        class="w-full sm:w-auto px-6 py-2 flex items-center justify-center"
+        (click)="confirmarOrden()" [disabled]="productosSeleccionados.length === 0"></p-button>
     </div>
 </div>
 <p-toast></p-toast>

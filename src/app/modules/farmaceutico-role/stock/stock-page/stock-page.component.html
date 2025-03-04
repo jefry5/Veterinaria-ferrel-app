@@ -1,8 +1,8 @@
 <div class="flex h-full w-full flex-col items-center justify-center bg-white p-6">
 
   <!-- titulo -->
-  <div class="w-3/4 flex justify-between items-center mb-4">
-    <h2 class="text-3xl font-bold">Consultar Stock 📦</h2>
+  <div class="w-full sm:w-3/4 flex flex-col sm:flex-row justify-between items-center mb-4">
+    <h2 class="text-2xl sm:text-3xl font-bold mb-2 sm:mb-0">Consultar Stock 📦</h2>
     <p-button 
       label="Ver Orden de Pago"
       icon="fa fa-shopping-cart"
@@ -13,9 +13,10 @@
   </div>
 
   <!-- Tabla-->
+  <div class="w-full sm:w-3/4 overflow-x-auto">
   <p-table
     #dt
-    class="w-3/4"
+    class="min-w-full"
     [value]="filteredProductos"
     [globalFilterFields]="['nombre','stock','precio_unitario']"
     dataKey="id_producto"
@@ -25,7 +26,7 @@
   >
     <!-- Buscador Global -->
     <ng-template pTemplate="caption">
-      <div class="flex items-center gap-2">
+      <div class="flex flex-col sm:flex-row items-center gap-2">
         <span class="fa fa-search"></span>
         <input
           pInputText
@@ -86,6 +87,7 @@
       </tr>
     </ng-template>
   </p-table>
+</div>
 </div>
 
 <!-- Modal para seleccionar cantidad -->
