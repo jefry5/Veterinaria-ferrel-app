@@ -46,7 +46,7 @@ export const routes: Routes = [
     path: 'orden',
     loadChildren: () => OrdenModule,
     canActivate: [authGuard],
-    data: { expectedRole: 'recepcionista' },
+    data: { expectedRole: 'farmaceutico' },
   },
   {
     path: 'clientes',
