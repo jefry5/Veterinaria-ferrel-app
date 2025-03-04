@@ -28,31 +28,37 @@ export const routes: Routes = [
     path: 'mascotas',
     loadChildren: () => MascotasModule,
     canActivate: [authGuard],
+    data: { expectedRole: 'veterinario' },
   },
   {
     path: 'historias',
     loadChildren: () => HistoriasMedicasModule,
     canActivate: [authGuard],
+    data: { expectedRole: 'veterinario' },
   },
   {
     path: 'stock',
     loadChildren: () => StockModule,
     canActivate: [authGuard],
+    data: { expectedRole: 'farmaceutico' },
   },
   {
     path: 'orden',
     loadChildren: () => OrdenModule,
     canActivate: [authGuard],
+    data: { expectedRole: 'recepcionista' },
   },
   {
     path: 'clientes',
     loadChildren: () => ClientesModule,
     canActivate: [authGuard],
+    data: { expectedRole: 'recepcionista' },
   },
   {
     path: 'pagos',
     loadChildren: () => PagosModule,
     canActivate: [authGuard],
+    data: { expectedRole: 'recepcionista' },
   },
   {
     path: '',

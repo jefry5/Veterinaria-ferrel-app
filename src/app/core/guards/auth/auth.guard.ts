@@ -8,11 +8,20 @@ export const authGuard: CanActivateFn = (route, state) => {
   const router = inject(Router);
 
   //Verifica que el token sea autentico para validad el guard
-  if(tokenService.isTokenValid()){
-    return true;
+  //Devuelve a la página de login si no tiene un token valido
+  if(!tokenService.isTokenValid()){
+    router.navigate(['/auth']);
+    return false;
   }
 
-  //Devuelve a la página de login si no tiene un token valido
-  router.navigate(['/auth']);
-  return false;
+  const expectedRole = route.data['expectedRole'];
+  const userRole = tokenService.getRole();
+
+  //Verifica si el rol coincide con el esperado
+  if (expectedRole && userRole !== expectedRole) {
+    router.navigate(['/home']);
+    return false;
+  }
+  
+  return true;
 };
